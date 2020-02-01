@@ -13,10 +13,17 @@ namespace idgag.GameState
         [SerializeField] private Lane[] lanes;
 
         public Lane[] Lanes => lanes;
+
+        public GameObject menuPrefab;
+        public Canvas menuCanvas;
+
         public static GameState Singleton { get; private set; }
 
         private void Awake() {
             Singleton = this;
+
+            GameObject menu = Instantiate(menuPrefab);
+            menuCanvas = menu.GetComponent<Canvas>();
 
             this.statement = null;
             PresentPRStatement();
