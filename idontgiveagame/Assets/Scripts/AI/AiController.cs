@@ -18,24 +18,15 @@ namespace idgag.AI
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
             Debug.Assert(navMeshAgent != null, $"{nameof(NavMeshAgent)} could not be found on the {nameof(GameObject)}");
-        }
 
-        private void LateUpdate()
-        {
             if (navMeshAgent.isOnNavMesh)
                 navMeshAgent.destination = testDestination;
         }
 
-        public void OnTriggerEnter(Collider other)
+        private void LateUpdate()
         {
-            if (!other.CompareTag("Floor") && !navMeshAgent.isOnNavMesh) return;
-
-            Debug.Log("Collided");
-
-            navMeshAgent.enabled = false;
-            navMeshAgent.enabled = true;
-
-            navMeshAgent.destination = testDestination;
+            if (testDestination != navMeshAgent.destination && navMeshAgent.isOnNavMesh)
+                navMeshAgent.destination = testDestination;
         }
     }
 }
