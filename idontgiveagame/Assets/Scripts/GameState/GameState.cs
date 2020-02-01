@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace idgag.GameState
@@ -6,9 +7,20 @@ namespace idgag.GameState
     {
         public static GameState Singleton;
 
+        public Dictionary<FuckBucketTarget, FuckBucket> fuckBuckets = new Dictionary<FuckBucketTarget, FuckBucket>() {
+            { FuckBucketTarget.Economy, new FuckBucket() },
+            { FuckBucketTarget.Environment, new FuckBucket() }
+        };
+
         private void Awake()
         {
             Singleton = this;
+        }
+
+        private void OnDestroy()
+        {
+            if (Singleton == this)
+                Singleton = null;
         }
 
         // Start is called before the first frame update
@@ -23,9 +35,15 @@ namespace idgag.GameState
 
         }
 
-        public void SubmitPRStatement()
+        public void SubmitPrStatement(List<WordGame.WordGame.FucksBucketMod> fucksBucketMods)
         {
-
+            foreach (WordGame.WordGame.FucksBucketMod fucksBucketMod in fucksBucketMods)
+            {
+                if (fuckBuckets.TryGetValue(fucksBucketMod.fucksBucketKey, out FuckBucket fuckBucket))
+                {
+                    fuckBucket.numFucks += fucksBucketMod.baseChange * fucksBucketMod.modifier;
+                }
+            }
         }
     }
 }

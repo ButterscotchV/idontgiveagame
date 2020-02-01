@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 
 namespace idgag.GameState
 {
-    enum FuckBucketTarget
+    public enum FuckBucketTarget
     {
         Economy,
         Environment
     }
 
-    public class FuckBucket
+    public struct FuckBucket
     {
-        FuckBucketTarget target;
-        int numFucks = 0;
+        public int numFucks;
     }
 }

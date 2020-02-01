@@ -5,13 +5,13 @@ using idgag.GameState;
 
 namespace idgag.WordGame
 {
-    public class WordGame : MonoBehaviour
+    public class WordGame
     {
         public struct FucksBucketMod
         {
-            int baseChange;
-            int modifier;
-            FuckBucketTarget fucksBucketKey;
+            public int baseChange;
+            public int modifier;
+            public FuckBucketTarget fucksBucketKey;
         }
 
         List<FucksBucketMod> modifications;
