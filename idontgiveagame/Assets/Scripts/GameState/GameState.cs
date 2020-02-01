@@ -41,6 +41,22 @@ namespace idgag.GameState
         {
         }
 
+        public float GetFuckBucketPercent(FuckBucketTarget fuckBucketTarget)
+        {
+            int totalFucks = 0;
+            int specifiedFucks = 0;
+
+            foreach (KeyValuePair<FuckBucketTarget, int> fuckBucket in fuckBuckets)
+            {
+                if (fuckBucket.Key == fuckBucketTarget)
+                    specifiedFucks = fuckBucket.Value;
+
+                totalFucks += fuckBucket.Value;
+            }
+
+            return specifiedFucks / (float)totalFucks;
+        }
+
         public void PresentPRStatement() {
             if (statement == null) {
                 statement = new PRStatement();
@@ -57,9 +73,6 @@ namespace idgag.GameState
                 }
             }
         }
-
-
-
 
         public void SubmitPrStatements(List<FucksBucketMod> fucksBucketMods) {
             foreach (FucksBucketMod fucksBucketMod in fucksBucketMods) {

@@ -95,5 +95,13 @@ namespace idgag.GameState
                 }
             }
         }
+
+        public void RemoveAiController(AiController aiControllerToRemove)
+        {
+            if (aiControllerToRemove == null)
+                return;
+
+            aiControllers.Remove(aiControllerToRemove);
+        }
     }
 }
