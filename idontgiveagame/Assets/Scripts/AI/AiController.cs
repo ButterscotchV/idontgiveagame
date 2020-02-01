@@ -1,17 +1,20 @@
+using System;
 using idgag.GameState;
+using idgag.GameState.LaneSections;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace idgag.AI
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class AiController : MonoBehaviour
+    public abstract class AiController : MonoBehaviour
     {
-        [SerializeField] private Vector3 destination;
         private NavMeshAgent navMeshAgent;
 
         public Lane lane;
-        public int laneSection = 0;
+        private int laneSectionIndex = -1;
+
+        public bool testMoving;
 
         // Start is called before the first frame update
         private void Start()
@@ -22,8 +25,53 @@ namespace idgag.AI
 
         private void LateUpdate()
         {
-            if (navMeshAgent.isOnNavMesh && destination != navMeshAgent.destination)
-                navMeshAgent.destination = destination;
+            if (testMoving)
+            {
+                TryMoveForward();
+                testMoving = false;
+            }
+        }
+
+        public abstract void RunAiLogic();
+
+        public bool TryMoveForward()
+        {
+            LaneSection[] laneSections = lane.LaneSections;
+
+            if (laneSectionIndex < laneSections.Length - 1)
+            {
+                if (laneSectionIndex >= 0)
+                {
+                    LaneSection curSection = laneSections[laneSectionIndex];
+
+                    if (!curSection.IsAllowedToPass())
+                        return false;
+
+                    curSection.numAi--;
+                }
+
+                laneSectionIndex++;
+                LaneSection newSection = laneSections[laneSectionIndex];
+                newSection.numAi++;
+
+                Vector3 destPos = newSection.GetAiPosition();
+
+                if (!SetDestination(destPos))
+                    Warp(destPos);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public void ResetController(Vector3 newPosition)
+        {
+            Warp(newPosition);
+            SetDestination(newPosition);
+            navMeshAgent.isStopped = true;
+
+            laneSectionIndex = -1;
         }
 
         public void Warp(Vector3 newPosition)
@@ -31,9 +79,9 @@ namespace idgag.AI
             navMeshAgent.Warp(newPosition);
         }
 
-        public void SetDestination(Vector3 aiDestination)
+        public bool SetDestination(Vector3 newDestination)
         {
-            destination = aiDestination;
+            return navMeshAgent.SetDestination(newDestination);
         }
     }
 }

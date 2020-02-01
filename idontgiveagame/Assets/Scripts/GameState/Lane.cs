@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using idgag.AI;
 using idgag.GameState.LaneSections;
 using UnityEngine;
@@ -13,6 +14,9 @@ namespace idgag.GameState
         [Min(1)] [SerializeField] private int maxAiCount = 100;
 
         private AiController[] aiInstances;
+
+        private List<AiController> aiControllers;
+        public LaneSection[] LaneSections => laneSections;
 
         private void Start()
         {
@@ -40,6 +44,11 @@ namespace idgag.GameState
                 aiController.lane = this;
                 aiInstances[i] = aiController;
             }
+        }
+
+        public void AddAiControllers(IEnumerable<AiController> newAiControllers)
+        {
+            aiControllers.AddRange(newAiControllers);
         }
     }
 }
