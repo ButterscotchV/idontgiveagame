@@ -7,7 +7,7 @@ namespace idgag.GameState.LaneSections
         [SerializeField] protected GameObject aiDestination;
         public uint numAi;
 
-        private void Start()
+        private void Awake()
         {
             Debug.Assert(aiDestination != null, $"{nameof(aiDestination)} must be assigned");
         }

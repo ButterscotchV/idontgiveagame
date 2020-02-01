@@ -14,8 +14,7 @@ namespace idgag.AI
         public Lane lane;
         private int laneSectionIndex = -1;
 
-        // Start is called before the first frame update
-        private void Start()
+        private void Awake()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
             Debug.Assert(navMeshAgent != null, $"{nameof(NavMeshAgent)} could not be found on the {nameof(GameObject)}");
@@ -54,11 +53,16 @@ namespace idgag.AI
             return false;
         }
 
+        public bool TryMoveToStart()
+        {
+            laneSectionIndex = -1;
+            return TryMoveForward();
+        }
+
         public void ResetController(Vector3 newPosition)
         {
             Warp(newPosition);
             SetDestination(newPosition);
-            navMeshAgent.isStopped = true;
 
             laneSectionIndex = -1;
         }
