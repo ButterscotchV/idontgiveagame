@@ -11,6 +11,7 @@ namespace idgag.GameState
         public readonly Dictionary<FuckBucketTarget, int> fuckBuckets = new Dictionary<FuckBucketTarget, int>();
         [SerializeField] private Lane[] lanes;
 
+        public Lane[] Lanes => lanes;
         public static GameState Singleton { get; private set; }
 
         private void Awake()
