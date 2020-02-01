@@ -14,22 +14,11 @@ namespace idgag.AI
         public Lane lane;
         private int laneSectionIndex = -1;
 
-        public bool testMoving;
-
         // Start is called before the first frame update
         private void Start()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
             Debug.Assert(navMeshAgent != null, $"{nameof(NavMeshAgent)} could not be found on the {nameof(GameObject)}");
-        }
-
-        private void LateUpdate()
-        {
-            if (testMoving)
-            {
-                TryMoveForward();
-                testMoving = false;
-            }
         }
 
         public abstract void RunAiLogic();

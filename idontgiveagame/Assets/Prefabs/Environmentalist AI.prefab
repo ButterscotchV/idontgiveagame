@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6692156902853277487}
   - component: {fileID: 6692156902853277486}
   - component: {fileID: 6692156902853277485}
-  - component: {fileID: 6692156902853277484}
+  - component: {fileID: -3716044696864600778}
   m_Layer: 0
-  m_Name: AI
+  m_Name: Environmentalist AI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6692156902853277484
+--- !u!114 &-3716044696864600778
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,9 +126,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6692156902853277483}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f39e6ea27afeb74e98a07866b81aa7c, type: 3}
+  m_Script: {fileID: 11500000, guid: 57a364cf018643d0b0274a46cbefbf4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {x: 0, y: 0, z: 0}
   lane: {fileID: 0}
-  laneSection: 0
+  testMoving: 0
