@@ -1,10 +1,12 @@
 namespace idgag.GameState.LaneSections
 {
-    public class StageSection : LaneSection
+    public class GateSection : LaneSection
     {
+        public int capacity = 10;
+
         public override bool IsAllowedToPass()
         {
-            return true;
+            return numAi > capacity;
         }
     }
 }

@@ -1,17 +1,18 @@
 using System;
 using System.Collections.Generic;
+using idgag.AI;
+using idgag.GameState.LaneSections;
 using UnityEngine;
 
 namespace idgag.GameState
 {
     public class GameState : MonoBehaviour
     {
-        public static GameState Singleton;
+        public readonly Dictionary<FuckBucketTarget, int> fuckBuckets = new Dictionary<FuckBucketTarget, int>();
+        [SerializeField] private Lane[] lanes;
 
-        public Dictionary<FuckBucketTarget, int> fuckBuckets = new Dictionary<FuckBucketTarget, int>() {
-            { FuckBucketTarget.Economy, 0 },
-            { FuckBucketTarget.Environment, 0 }
-        };
+        public Lane[] Lanes => lanes;
+        public static GameState Singleton { get; private set; }
 
         private void Awake()
         {
@@ -32,13 +33,11 @@ namespace idgag.GameState
         // Start is called before the first frame update
         private void Start()
         {
-
         }
 
         // Update is called once per frame
         private void Update()
         {
-
         }
 
         public void SubmitPrStatement(List<WordGame.WordGame.FucksBucketMod> fucksBucketMods)
