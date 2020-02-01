@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using idgag.AI;
 using idgag.GameState.LaneSections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace idgag.GameState
 {
@@ -13,9 +15,9 @@ namespace idgag.GameState
         [SerializeField] private GameObject aiContainer;
         [Min(1)] [SerializeField] private int maxAiCount = 100;
 
-        private AiController[] aiInstances;
+        public float randomSpawnRange = 1;
 
-        private List<AiController> aiControllers;
+        private List<AiController> aiControllers = new List<AiController>();
         public LaneSection[] LaneSections => laneSections;
 
         private void Start()
@@ -23,7 +25,7 @@ namespace idgag.GameState
             Debug.Assert(aiPrefab != null, $"{nameof(aiPrefab)} must be assigned");
             Debug.Assert(aiContainer != null, $"{nameof(aiPrefab)} must be assigned");
 
-            aiInstances = new AiController[maxAiCount];
+            AiController[] aiInstances = new AiController[maxAiCount];
 
             Debug.Log("Instantiating AI...");
             for (int i = 0; i < aiInstances.Length; i++)
@@ -44,11 +46,54 @@ namespace idgag.GameState
                 aiController.lane = this;
                 aiInstances[i] = aiController;
             }
+
+            AddAiControllers(aiInstances);
+        }
+
+        public void AddAiController(AiController newAiController)
+        {
+            if (newAiController == null)
+                return;
+
+            newAiController.lane = this;
+            newAiController.gameObject.SetActive(true);
+
+            Vector3 spawnOffset = new Vector3(Random.Range(-randomSpawnRange, randomSpawnRange), 0, Random.Range(-randomSpawnRange, randomSpawnRange));
+            newAiController.ResetController(laneSections.Length > 0 ? laneSections[0].GetAiPosition() + spawnOffset : Vector3.zero);
+
+            newAiController.TryMoveToStart();
+
+            aiControllers.Add(newAiController);
+        }
+
+        public void AddAiControllers(params AiController[] newAiControllers)
+        {
+            foreach (AiController aiController in newAiControllers)
+            {
+                try
+                {
+                    AddAiController(aiController);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
         }
 
         public void AddAiControllers(IEnumerable<AiController> newAiControllers)
         {
-            aiControllers.AddRange(newAiControllers);
+            foreach (AiController aiController in newAiControllers)
+            {
+                try
+                {
+                    AddAiController(aiController);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
         }
     }
 }
