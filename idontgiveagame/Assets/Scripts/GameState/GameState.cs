@@ -1,31 +1,32 @@
 using System;
 using System.Collections.Generic;
-using idgag.AI;
-using idgag.GameState.LaneSections;
+using idgag.WordGame;
 using UnityEngine;
 
 namespace idgag.GameState
 {
     public class GameState : MonoBehaviour
     {
+        private PRStatement statement;
+
         public readonly Dictionary<FuckBucketTarget, int> fuckBuckets = new Dictionary<FuckBucketTarget, int>();
         [SerializeField] private Lane[] lanes;
 
         public Lane[] Lanes => lanes;
         public static GameState Singleton { get; private set; }
 
-        private void Awake()
-        {
+        private void Awake() {
             Singleton = this;
 
-            foreach (FuckBucketTarget fuckBucketTarget in Enum.GetValues(typeof(FuckBucketTarget)))
-            {
+            this.statement = null;
+            PresentPRStatement();
+
+            foreach (FuckBucketTarget fuckBucketTarget in Enum.GetValues(typeof(FuckBucketTarget))) {
                 fuckBuckets.Add(fuckBucketTarget, 0);
             }
         }
 
-        private void OnDestroy()
-        {
+        private void OnDestroy() {
             if (Singleton == this)
                 Singleton = null;
         }
@@ -40,10 +41,28 @@ namespace idgag.GameState
         {
         }
 
-        public void SubmitPrStatement(List<WordGame.WordGame.FucksBucketMod> fucksBucketMods)
-        {
-            foreach (WordGame.WordGame.FucksBucketMod fucksBucketMod in fucksBucketMods)
-            {
+        public void PresentPRStatement() {
+            if (statement == null) {
+                statement = new PRStatement();
+
+                Sentence sentence = statement.getSentence();
+                // do unity loading stuff for UI here
+                foreach (Word word in sentence.getWords()) {
+                    if (!word.isOption()) {
+                        Debug.Log(word.getVanillaWord());
+                        continue;
+                    }
+
+                    Debug.Log(word.getChoices().Keys);
+                }
+            }
+        }
+
+
+
+
+        public void SubmitPrStatements(List<FucksBucketMod> fucksBucketMods) {
+            foreach (FucksBucketMod fucksBucketMod in fucksBucketMods) {
                 if (fuckBuckets.ContainsKey(fucksBucketMod.fucksBucketKey))
                     fuckBuckets[fucksBucketMod.fucksBucketKey] += fucksBucketMod.baseChange * fucksBucketMod.modifier;
                 else
