@@ -6,12 +6,9 @@ namespace idgag.GameState
 {
     public class GameState : MonoBehaviour
     {
-        public static GameState Singleton;
+        public readonly Dictionary<FuckBucketTarget, int> fuckBuckets = new Dictionary<FuckBucketTarget, int>();
 
-        public Dictionary<FuckBucketTarget, int> fuckBuckets = new Dictionary<FuckBucketTarget, int>() {
-            { FuckBucketTarget.Economy, 0 },
-            { FuckBucketTarget.Environment, 0 }
-        };
+        public static GameState Singleton { get; private set; }
 
         private void Awake()
         {
