@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
-namespace idgag.GameState.LaneSection
+namespace idgag.GameState.LaneSections
 {
-    public class GuardSection : LaneSection
+    public class WallSection : LaneSection
     {
         public override bool IsAllowedToPass()
         {
-            return numAi > 6;
+            return numAi > 10;
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace idgag.GameState.LaneSection
+namespace idgag.GameState.LaneSections
 {
     public abstract class LaneSection : MonoBehaviour
     {

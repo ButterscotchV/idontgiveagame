@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace idgag.GameState.LaneSection
+namespace idgag.GameState.LaneSections
 {
     public class StageSection : LaneSection
     {
         public override bool IsAllowedToPass()
         {
-            return false;
+            return true;
         }
     }
 }
