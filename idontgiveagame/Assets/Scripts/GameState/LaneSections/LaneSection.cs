@@ -1,17 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace idgag.GameState.LaneSections
 {
     public abstract class LaneSection : MonoBehaviour
     {
-        [SerializeField]
-        protected Vector3 aiPosition;
-        public uint numAi = 0;
+        [SerializeField] protected Vector3 aiPosition;
+        public uint numAi;
 
         public abstract bool IsAllowedToPass();
 

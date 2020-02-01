@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,8 +6,7 @@ namespace idgag.AI
     [RequireComponent(typeof(NavMeshAgent))]
     public class AiController : MonoBehaviour
     {
-        [SerializeField]
-        private Vector3 destination;
+        [SerializeField] private Vector3 destination;
         private NavMeshAgent navMeshAgent;
 
         // Start is called before the first frame update
