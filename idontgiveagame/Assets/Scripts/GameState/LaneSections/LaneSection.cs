@@ -9,6 +9,7 @@ namespace idgag.GameState.LaneSections
 {
     public abstract class LaneSection : MonoBehaviour
     {
+        [SerializeField]
         protected Vector3 aiPosition;
         public uint numAi = 0;
 

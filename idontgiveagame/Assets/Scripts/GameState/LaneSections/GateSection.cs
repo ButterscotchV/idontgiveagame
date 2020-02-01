@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace idgag.GameState.LaneSections
 {
-    public class WallSection : LaneSection
+    public class GateSection : LaneSection
     {
         public override bool IsAllowedToPass()
         {
