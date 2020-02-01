@@ -1,3 +1,4 @@
+using idgag.GameState;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,6 +9,9 @@ namespace idgag.AI
     {
         [SerializeField] private Vector3 destination;
         private NavMeshAgent navMeshAgent;
+
+        public Lane lane;
+        public int laneSection = 0;
 
         // Start is called before the first frame update
         private void Start()
@@ -20,6 +24,11 @@ namespace idgag.AI
         {
             if (navMeshAgent.isOnNavMesh && destination != navMeshAgent.destination)
                 navMeshAgent.destination = destination;
+        }
+
+        public void Warp(Vector3 newPosition)
+        {
+            navMeshAgent.Warp(newPosition);
         }
 
         public void SetDestination(Vector3 aiDestination)

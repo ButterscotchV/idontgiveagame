@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using idgag.AI;
+using idgag.GameState.LaneSections;
 using UnityEngine;
 
 namespace idgag.GameState
@@ -7,6 +9,7 @@ namespace idgag.GameState
     public class GameState : MonoBehaviour
     {
         public readonly Dictionary<FuckBucketTarget, int> fuckBuckets = new Dictionary<FuckBucketTarget, int>();
+        [SerializeField] private Lane[] lanes;
 
         public static GameState Singleton { get; private set; }
 
