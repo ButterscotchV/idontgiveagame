@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,14 +8,19 @@ namespace idgag.GameState
     {
         public static GameState Singleton;
 
-        public Dictionary<FuckBucketTarget, FuckBucket> fuckBuckets = new Dictionary<FuckBucketTarget, FuckBucket>() {
-            { FuckBucketTarget.Economy, new FuckBucket() },
-            { FuckBucketTarget.Environment, new FuckBucket() }
+        public Dictionary<FuckBucketTarget, int> fuckBuckets = new Dictionary<FuckBucketTarget, int>() {
+            { FuckBucketTarget.Economy, 0 },
+            { FuckBucketTarget.Environment, 0 }
         };
 
         private void Awake()
         {
             Singleton = this;
+
+            foreach (FuckBucketTarget fuckBucketTarget in Enum.GetValues(typeof(FuckBucketTarget)))
+            {
+                fuckBuckets.Add(fuckBucketTarget, 0);
+            }
         }
 
         private void OnDestroy()
@@ -39,10 +45,10 @@ namespace idgag.GameState
         {
             foreach (WordGame.WordGame.FucksBucketMod fucksBucketMod in fucksBucketMods)
             {
-                if (fuckBuckets.TryGetValue(fucksBucketMod.fucksBucketKey, out FuckBucket fuckBucket))
-                {
-                    fuckBucket.numFucks += fucksBucketMod.baseChange * fucksBucketMod.modifier;
-                }
+                if (fuckBuckets.ContainsKey(fucksBucketMod.fucksBucketKey))
+                    fuckBuckets[fucksBucketMod.fucksBucketKey] += fucksBucketMod.baseChange * fucksBucketMod.modifier;
+                else
+                    Debug.Log($"{nameof(fucksBucketMod)} provided invalid {nameof(fucksBucketMod.fucksBucketKey)}");
             }
         }
     }

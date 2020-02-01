@@ -11,9 +11,4 @@ namespace idgag.GameState
         Economy,
         Environment
     }
-
-    public struct FuckBucket
-    {
-        public int numFucks;
-    }
 }
