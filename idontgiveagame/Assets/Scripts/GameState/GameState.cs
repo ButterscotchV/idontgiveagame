@@ -13,10 +13,17 @@ namespace idgag.GameState
         [SerializeField] private Lane[] lanes;
 
         public Lane[] Lanes => lanes;
+
+        public GameObject menuPrefab;
+        public Canvas menuCanvas;
+
         public static GameState Singleton { get; private set; }
 
         private void Awake() {
             Singleton = this;
+
+            GameObject menu = Instantiate(menuPrefab);
+            menuCanvas = menu.GetComponent<Canvas>();
 
             this.statement = null;
             PresentPRStatement();
@@ -41,6 +48,22 @@ namespace idgag.GameState
         {
         }
 
+        public float GetFuckBucketPercent(FuckBucketTarget fuckBucketTarget)
+        {
+            int totalFucks = 0;
+            int specifiedFucks = 0;
+
+            foreach (KeyValuePair<FuckBucketTarget, int> fuckBucket in fuckBuckets)
+            {
+                if (fuckBucket.Key == fuckBucketTarget)
+                    specifiedFucks = fuckBucket.Value;
+
+                totalFucks += fuckBucket.Value;
+            }
+
+            return specifiedFucks / (float)totalFucks;
+        }
+
         public void PresentPRStatement() {
             if (statement == null) {
                 statement = new PRStatement();
@@ -57,9 +80,6 @@ namespace idgag.GameState
                 }
             }
         }
-
-
-
 
         public void SubmitPrStatements(List<FucksBucketMod> fucksBucketMods) {
             foreach (FucksBucketMod fucksBucketMod in fucksBucketMods) {
