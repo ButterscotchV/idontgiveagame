@@ -10,7 +10,7 @@ namespace idgag.AI
     public class AiController : MonoBehaviour
     {
         [SerializeField]
-        private Vector3 testDestination;
+        private Vector3 destination;
         private NavMeshAgent navMeshAgent;
 
         // Start is called before the first frame update
@@ -18,15 +18,17 @@ namespace idgag.AI
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
             Debug.Assert(navMeshAgent != null, $"{nameof(NavMeshAgent)} could not be found on the {nameof(GameObject)}");
-
-            if (navMeshAgent.isOnNavMesh)
-                navMeshAgent.destination = testDestination;
         }
 
         private void LateUpdate()
         {
-            if (testDestination != navMeshAgent.destination && navMeshAgent.isOnNavMesh)
-                navMeshAgent.destination = testDestination;
+            if (navMeshAgent.isOnNavMesh && destination != navMeshAgent.destination)
+                navMeshAgent.destination = destination;
+        }
+
+        public void SetDestination(Vector3 aiDestination)
+        {
+            destination = aiDestination;
         }
     }
 }
