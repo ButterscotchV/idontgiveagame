@@ -1,18 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GameState : MonoBehaviour
+namespace idgag.GameState
 {
-    // Start is called before the first frame update
-    void Start()
+    public class GameState : MonoBehaviour
     {
-        
-    }
+        public static GameState Singleton;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void Awake()
+        {
+            Singleton = this;
+        }
+
+        // Start is called before the first frame update
+        private void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        private void Update()
+        {
+
+        }
+
+        public void SubmitPRStatement()
+        {
+
+        }
     }
 }
