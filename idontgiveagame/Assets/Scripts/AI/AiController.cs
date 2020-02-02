@@ -14,7 +14,7 @@ namespace idgag.AI
         public Lane lane;
         private int laneSectionIndex = -1;
 
-        private void Awake()
+        protected void Awake()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
             Debug.Assert(navMeshAgent != null, $"{nameof(NavMeshAgent)} could not be found on the {nameof(GameObject)}");
