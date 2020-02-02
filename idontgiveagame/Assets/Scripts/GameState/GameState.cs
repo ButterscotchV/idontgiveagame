@@ -32,6 +32,7 @@ namespace idgag.GameState
         public CrowdGenerator CrowdGenerator { get; private set; }
 
         public PresenterAnimator presenterAnimator;
+        public BuildingShrinker buildingShrinker;
 
         public static GameState Singleton { get; private set; }
 
@@ -41,6 +42,9 @@ namespace idgag.GameState
 
             Singleton = this;
 
+            presenterAnimator = FindObjectOfType<PresenterAnimator>();
+            buildingShrinker = FindObjectOfType<BuildingShrinker>();
+
             ResetHealth();
 
             GameObject menu = Instantiate(menuPrefab);
@@ -49,19 +53,19 @@ namespace idgag.GameState
             GameObject crowdObj = Instantiate(crowdGeneratorPrefab, transform);
             CrowdGenerator = crowdObj.GetComponent<CrowdGenerator>();
 
-            presenterAnimator = FindObjectOfType<PresenterAnimator>();
-
             foreach (FuckBucketTarget fuckBucketTarget in Enum.GetValues(typeof(FuckBucketTarget))) {
                 fuckBuckets.Add(fuckBucketTarget, 50);
             }
 
             RunRound();
+            PresentPRStatement();
 
         }
 
         private void ResetHealth() {
             maxHealth = 100;
             currentHealth = maxHealth;
+            buildingShrinker.ResetPosition();
         }
 
         private void OnDestroy() {
@@ -155,6 +159,8 @@ namespace idgag.GameState
         public void RunDamageTick() {
 
             currentHealth -= CountAiAtStage();
+
+            buildingShrinker.SinkByPercent(currentHealth <= 0 ? 1 : 1 - (currentHealth / (float) maxHealth));
 
             if (currentHealth <= 0) {
                 PresentLoseBox();

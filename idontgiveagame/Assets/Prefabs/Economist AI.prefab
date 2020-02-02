@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df86490a483452fbb7506b86cb557f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectionAnimationDistance: 1.5
+  sectionAnimationDistance: 1.75
   lane: {fileID: 0}
   fuckTarget: 0
   minFucksPercentThreshold: 0.5
