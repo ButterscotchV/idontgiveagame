@@ -61,6 +61,23 @@ namespace idgag.GameState
             }
         }
 
+        public int CountAiAtStage()
+        {
+            int aiAtStage = 0;
+            
+            foreach (Lane lane in lanes)
+            {
+                LaneSection[] laneSections = lane.LaneSections;
+
+                if (laneSections.Length <= 0)
+                    continue;
+
+                aiAtStage += laneSections[laneSections.Length - 1].numAi;
+            }
+
+            return aiAtStage;
+        }
+
         public void RunAiTick()
         {
             GenerateFuckBucketPercentages();
