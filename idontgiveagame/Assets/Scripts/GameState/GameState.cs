@@ -6,12 +6,17 @@ using idgag.GameState.LaneSections;
 using idgag.WordGame;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace idgag.GameState
 {
     public class GameState : MonoBehaviour
     {
+
         private PRStatement statement;
+
+        public int maxHealth;
+        public int currentHealth;
 
         public readonly Dictionary<FuckBucketTarget, int> fuckBuckets = new Dictionary<FuckBucketTarget, int>();
         public readonly Dictionary<FuckBucketTarget, float> fuckBucketPercentages = new Dictionary<FuckBucketTarget, float>();
@@ -27,8 +32,13 @@ namespace idgag.GameState
 
         public static GameState Singleton { get; private set; }
 
+        private bool newRound;
         private void Awake() {
+            newRound = true;
+
             Singleton = this;
+
+            ResetHealth();
 
             GameObject menu = Instantiate(menuPrefab);
             menuCanvas = menu.GetComponent<Canvas>();
@@ -43,6 +53,11 @@ namespace idgag.GameState
             RunRound();
             PresentPRStatement();
 
+        }
+
+        private void ResetHealth() {
+            maxHealth = 100;
+            currentHealth = maxHealth;
         }
 
         private void OnDestroy() {
@@ -109,12 +124,41 @@ namespace idgag.GameState
 
         public void RunRound()
         {
+            if (newRound) {
+                statement = null;
+                PresentPRStatement();
+            }
             GenerateFuckBucketPercentages();
             RunAiTick();
+            RunDamageTick();
             SpawnAi();
         }
 
+        public void RunDamageTick() {
+
+            currentHealth -= CountAiAtStage();
+
+            if (currentHealth <= 0) {
+                PresentLoseBox();
+            } else {
+
+                newRound = true;
+            }
+        }
+
+        public void PresentLoseBox() {
+            string loseBoxPath = "WordGame/LoseBox";
+            GameObject loseBox = Instantiate(Resources.Load<GameObject>(loseBoxPath), menuCanvas.gameObject.transform);
+
+            int totalFucks = fuckBuckets.Sum(fuckBucket => fuckBucket.Value);
+
+            TMP_Text fucksGivenBox = loseBox.transform.Find("FucksGiven").GetComponent<TMP_Text>();
+            fucksGivenBox.text = totalFucks.ToString();
+
+        }
+
         public void PresentPRStatement() {
+            Debug.Log(statement);
             if (statement == null) {
                 statement = new PRStatement();
 
@@ -162,8 +206,7 @@ namespace idgag.GameState
                     this.SubmitPrStatements();
                     this.RunRound();
                     Destroy(teleprompter);
-                    statement = null;
-                    PresentPRStatement();
+
 
                 });
             }

@@ -47,7 +47,7 @@ namespace idgag.WordGame {
             for (int i = 0; i < numberOfOptions; i++) {
                 Option newOption = new Option();
                 float label = (float)Mathf.Clamp(minimum + (i * spreadPerOption), minimum, maximum);
-                newOption.value = (int)((label / maximum) * 5.0f);
+                newOption.value = i / 2;
 
 
                 if (!options.ContainsKey(label.ToString())) {
