@@ -37,7 +37,7 @@ namespace idgag.GameState
             CrowdGenerator = crowdObj.GetComponent<CrowdGenerator>();
 
             foreach (FuckBucketTarget fuckBucketTarget in Enum.GetValues(typeof(FuckBucketTarget))) {
-                fuckBuckets.Add(fuckBucketTarget, 0);
+                fuckBuckets.Add(fuckBucketTarget, 50);
             }
 
             RunRound();
