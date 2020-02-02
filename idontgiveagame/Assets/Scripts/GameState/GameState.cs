@@ -21,6 +21,9 @@ namespace idgag.GameState
         public GameObject menuPrefab;
         [NonSerialized] public Canvas menuCanvas;
 
+        public GameObject crowdGeneratorPrefab;
+        public CrowdGenerator CrowdGenerator { get; private set; }
+
         public static GameState Singleton { get; private set; }
 
         private void Awake() {
@@ -29,27 +32,19 @@ namespace idgag.GameState
             GameObject menu = Instantiate(menuPrefab);
             menuCanvas = menu.GetComponent<Canvas>();
 
-            this.statement = null;
-            PresentPRStatement();
+            GameObject crowdObj = Instantiate(crowdGeneratorPrefab, new Vector3(0, 0, 0), Quaternion.identity, transform);
+            CrowdGenerator = crowdObj.GetComponent<CrowdGenerator>();
 
             foreach (FuckBucketTarget fuckBucketTarget in Enum.GetValues(typeof(FuckBucketTarget))) {
                 fuckBuckets.Add(fuckBucketTarget, 0);
             }
+
+            RunRound();
         }
 
         private void OnDestroy() {
             if (Singleton == this)
                 Singleton = null;
-        }
-
-        // Start is called before the first frame update
-        private void Start()
-        {
-        }
-
-        // Update is called once per frame
-        private void Update()
-        {
         }
 
         public void GenerateFuckBucketPercentages()
@@ -81,8 +76,6 @@ namespace idgag.GameState
 
         public void RunAiTick()
         {
-            GenerateFuckBucketPercentages();
-
             foreach (Lane lane in lanes)
             {
                 foreach (AiController laneAiController in lane.AiControllers)
@@ -90,6 +83,23 @@ namespace idgag.GameState
                     laneAiController.RunAiLogic();
                 }
             }
+        }
+
+        public void SpawnAi()
+        {
+            foreach (Lane lane in lanes)
+            {
+                CrowdGenerator.GenerateActiveCrowd(CrowdGenerator.TotalPPLPerWave, fuckBucketPercentages[FuckBucketTarget.Economy], fuckBucketPercentages[FuckBucketTarget.Environment], lane);
+                CrowdGenerator.Plot(lane.offset_horizontal, lane.offset_vertical, lane.Column_Max, lane.BusinessAppearLoc, lane.EnvironmentalAppearLoc);
+            }
+        }
+
+        public void RunRound()
+        {
+            PresentPRStatement();
+            GenerateFuckBucketPercentages();
+            RunAiTick();
+            SpawnAi();
         }
 
         public void PresentPRStatement() {

@@ -109,10 +109,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BusinessPoolSize: 100
   EnvironmentalPoolSize: 100
-  PoolPos: {x: -10000, y: -10000, z: -10000}
   m_ActiveEnvironmentalCrowd: []
   m_ActiveBusinessCrowd: []
-  TotalPPLPerWave: 100
+  TotalPPLPerWave: 10
   BusinessPersonPrefab: {fileID: 6692156902853277483, guid: f48e7893f25ab1a488f5cc483a486ff0,
     type: 3}
   EnvironmentalPersonPrefab: {fileID: 6692156902853277483, guid: 4607d49d45732c449a17721f827aed7d,

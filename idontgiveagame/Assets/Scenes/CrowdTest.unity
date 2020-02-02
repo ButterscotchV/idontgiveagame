@@ -200,6 +200,7 @@ Transform:
   - {fileID: 1195852889}
   - {fileID: 1733765284}
   - {fileID: 38921580}
+  - {fileID: 975794075}
   m_Father: {fileID: 639936106}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -218,9 +219,8 @@ MonoBehaviour:
   laneSections:
   - {fileID: 1733765285}
   - {fileID: 38921581}
+  - {fileID: 975794076}
   maxAiCount: 30
-  CrowdGeneratorPrefab: {fileID: 919548893211538802, guid: 291210789be4bbb4ebdd782a93ad2a6f,
-    type: 3}
   laneWidth: 5
   offset_horizontal: 1.5
   offset_vertical: 2
@@ -502,6 +502,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &975794074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 975794075}
+  - component: {fileID: 975794076}
+  m_Layer: 0
+  m_Name: Stage Section
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &975794075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975794074}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 30}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 526767023}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &975794076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975794074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a61607a12f8d74c4e8258d2eb4c2bfc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiDestination: {fileID: 975794074}
+  numAi: 0
 --- !u!1 &1195852888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,6 +1118,8 @@ MonoBehaviour:
   econFucks: 0
   envFucks: 0
   runAiTick: 0
+  crowdGeneratorPrefab: {fileID: 919548893211538802, guid: 291210789be4bbb4ebdd782a93ad2a6f,
+    type: 3}
 --- !u!4 &1828652759
 Transform:
   m_ObjectHideFlags: 0

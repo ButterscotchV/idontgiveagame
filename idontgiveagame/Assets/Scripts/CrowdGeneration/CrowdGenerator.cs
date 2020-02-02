@@ -7,26 +7,20 @@ public class CrowdGenerator : MonoBehaviour
 {
     public int BusinessPoolSize = 100;
     public int EnvironmentalPoolSize = 100;
-    public Vector3 PoolPos = new Vector3(-10000, -10000, -10000);
 
-    public List<EnvironmentalistAi> m_ActiveEnvironmentalCrowd;
-    public List<EconomistAi> m_ActiveBusinessCrowd;
-    public int TotalPPLPerWave = 100;
+    public List<EnvironmentalistAi> m_ActiveEnvironmentalCrowd = new List<EnvironmentalistAi>();
+    public List<EconomistAi> m_ActiveBusinessCrowd  = new List<EconomistAi>();
+    public int TotalPPLPerWave = 10;
 
     public GameObject BusinessPersonPrefab;
     public GameObject EnvironmentalPersonPrefab;
 
-    List<AiController> m_CurrentWave;
-    List<EconomistAi> m_BusinessCrowdPool;
-    List<EnvironmentalistAi> m_EnvironmentalCrowdPool;
+    List<EconomistAi> m_BusinessCrowdPool = new List<EconomistAi>();
+    List<EnvironmentalistAi> m_EnvironmentalCrowdPool = new List<EnvironmentalistAi>();
 
     // Start is called before the first frame update
     void Awake()
     {
-        m_BusinessCrowdPool = new List<EconomistAi>();
-        m_EnvironmentalCrowdPool = new List<EnvironmentalistAi>();
-        m_ActiveBusinessCrowd = new List<EconomistAi>();
-        m_ActiveEnvironmentalCrowd = new List<EnvironmentalistAi>();
         SpawnPool();
     }
 
@@ -35,42 +29,20 @@ public class CrowdGenerator : MonoBehaviour
         for (int i = 0; i < BusinessPoolSize; i++)
         {
 
-            GameObject obj = Instantiate(BusinessPersonPrefab, PoolPos, Quaternion.identity);
+            GameObject obj = Instantiate(BusinessPersonPrefab, transform.GetChild(0).transform, true);
             obj.SetActive(false);
-            obj.transform.parent = transform.GetChild(0).transform;
             m_BusinessCrowdPool.Add(obj.GetComponent<EconomistAi>());
         }
 
         for (int i = 0; i < EnvironmentalPoolSize; i++)
         {
-            GameObject obj = Instantiate(EnvironmentalPersonPrefab, PoolPos, Quaternion.identity);
+            GameObject obj = Instantiate(EnvironmentalPersonPrefab, transform.GetChild(1).transform, true);
             obj.SetActive(false);
-            obj.transform.parent = transform.GetChild(1).transform;
             m_EnvironmentalCrowdPool.Add(obj.GetComponent<EnvironmentalistAi>());
         }
     }
 
-    void BackToBusinessPool()
-    {
-        foreach(EconomistAi p in m_ActiveBusinessCrowd)
-        {
-            p.gameObject.SetActive(false);
-            p.gameObject.transform.position = PoolPos;
-        }
-        m_ActiveBusinessCrowd.Clear();
-       
-    }
-    void BackToEnvironmentalPool()
-    {
-        foreach(EnvironmentalistAi p in m_ActiveEnvironmentalCrowd)
-        {
-            p.gameObject.SetActive(false);
-            p.gameObject.transform.position = PoolPos;
-        }
-        m_ActiveEnvironmentalCrowd.Clear();
-    }
-
-    EconomistAi GetObjFromBusinessPool()
+    EconomistAi TakeFromBusinessPool()
     {
         foreach (EconomistAi p in m_BusinessCrowdPool)
         {
@@ -79,10 +51,16 @@ public class CrowdGenerator : MonoBehaviour
                 return p;
             }
         }
-        return null;
+
+        GameObject obj = Instantiate(BusinessPersonPrefab, transform.GetChild(0).transform, true);
+        obj.SetActive(false);
+        EconomistAi economistAi = obj.GetComponent<EconomistAi>();
+        m_BusinessCrowdPool.Add(economistAi);
+
+        return economistAi;
     }
 
-    EnvironmentalistAi GetObjFromEnvironmentalPool()
+    EnvironmentalistAi TakeFromEnvironmentalPool()
     {
         foreach (EnvironmentalistAi p in m_EnvironmentalCrowdPool)
         {
@@ -91,63 +69,42 @@ public class CrowdGenerator : MonoBehaviour
                 return p;
             }
         }
-        return null;
+
+        GameObject obj = Instantiate(EnvironmentalPersonPrefab, transform.GetChild(1).transform, true);
+        obj.SetActive(false);
+        EnvironmentalistAi environmentalistAi = obj.GetComponent<EnvironmentalistAi>();
+        m_EnvironmentalCrowdPool.Add(environmentalistAi);
+
+        return environmentalistAi;
     }
 
     // call this func every wave
-    public void GenerateActiveCrowd(int totalPPLSize, int BusinessPercentage, int EnvironmentalPercentage, Lane currentLane)
+    public void GenerateActiveCrowd(int waveSize, float businessPercentage, float environmentalPercentage, Lane currentLane)
     {
-        int randNum;
-        int total = 0;
-
-        while (total < totalPPLSize)
+        for (int i = 0; i < waveSize; i++)
         {
-            randNum = Random.Range(1, 101);
-
-            if (BusinessPercentage < EnvironmentalPercentage)
+            // grab a business person
+            if (Random.Range(0f, 1f) < businessPercentage)
             {
-                // grab a business person
-                if (randNum > 0 && randNum <= BusinessPercentage)
-                {
-                    EconomistAi p = GetObjFromBusinessPool();
-                    currentLane.AddAiController(p, transform.GetChild(2).transform.position);
-                    m_ActiveBusinessCrowd.Add(p);
-                }
-                // grab a environmental person
-                else if (randNum > BusinessPercentage && randNum < 100)
-                {
-                    EnvironmentalistAi p = GetObjFromEnvironmentalPool();
-                    currentLane.AddAiController(p, transform.GetChild(3).transform.position);
-                    m_ActiveEnvironmentalCrowd.Add(p);
-                }
-                else continue;
+                EconomistAi p = TakeFromBusinessPool();
+                currentLane.AddAiController(p, transform.GetChild(2).transform.position);
+                m_ActiveBusinessCrowd.Add(p);
             }
+
+            // grab a environmental person
             else
             {
-                // grab a environmental person
-                if (randNum > 0 && randNum <= EnvironmentalPercentage)
-                {
-                    EnvironmentalistAi p = GetObjFromEnvironmentalPool();
-                    currentLane.AddAiController(p, transform.GetChild(3).transform.position);
-                    m_ActiveEnvironmentalCrowd.Add(p);
-                }
-                // grab a business person
-                else if (randNum > EnvironmentalPercentage && randNum < 100)
-                {
-                    EconomistAi p = GetObjFromBusinessPool();
-                    currentLane.AddAiController(p, transform.GetChild(2).transform.position);
-                    m_ActiveBusinessCrowd.Add(p);
-                }
-                else continue;
+                EnvironmentalistAi p = TakeFromEnvironmentalPool();
+                currentLane.AddAiController(p, transform.GetChild(3).transform.position);
+                m_ActiveEnvironmentalCrowd.Add(p);
             }
-            total++;
         }
     }
 
-    public void Plot(float offset_horizontal, float offset_vertical, int Column_Max, Vector3 BusinessAppearLoc,  Vector3 EnvironmentalAppearLoc)
+    public void Plot(float offsetHorizontal, float offsetVertical, int columnMax, Vector3 businessAppearLoc,  Vector3 environmentalAppearLoc)
     {
-        PlotBusinessPeople(offset_horizontal,offset_vertical,Column_Max, BusinessAppearLoc);
-        PlotEnvironmentalPeople(offset_horizontal, offset_vertical, Column_Max, EnvironmentalAppearLoc);
+        PlotBusinessPeople(offsetHorizontal,offsetVertical,columnMax, businessAppearLoc);
+        PlotEnvironmentalPeople(offsetHorizontal, offsetVertical, columnMax, environmentalAppearLoc);
     }
 
     public void PlotBusinessPeople(float offset_horizontal, float offset_vertical , int Column_Max, Vector3 BusinessAppearLoc)
@@ -160,6 +117,9 @@ public class CrowdGenerator : MonoBehaviour
 
         foreach (EconomistAi p in m_ActiveBusinessCrowd)
         {
+            if (p == null)
+                continue;
+
             p.transform.position = BusinessAppearLoc + offsetHorizontal*steps_x + offsetVertical*steps_z;
             
             if(steps_x == Column_Max-1)
@@ -171,6 +131,8 @@ public class CrowdGenerator : MonoBehaviour
 
             steps_x++;
         }
+
+        m_ActiveBusinessCrowd.Clear();
     }
 
     public void PlotEnvironmentalPeople(float offset_horizontal, float offset_vertical, int Column_Max, Vector3 EnvironmentalAppearLoc)
@@ -183,6 +145,9 @@ public class CrowdGenerator : MonoBehaviour
 
         foreach (EnvironmentalistAi p in m_ActiveEnvironmentalCrowd)
         {
+            if (p == null)
+                continue;
+
             p.transform.position = EnvironmentalAppearLoc + offsetHorizontal*steps_x + offsetVertical*steps_z;
             
             if(steps_x == Column_Max-1)
@@ -194,5 +159,7 @@ public class CrowdGenerator : MonoBehaviour
 
             steps_x++;
         }
+
+        m_ActiveEnvironmentalCrowd.Clear();
     }
 }
