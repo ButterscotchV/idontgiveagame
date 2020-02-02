@@ -18,5 +18,19 @@ namespace idgag.GameState.LaneSections
         {
             return aiDestination.transform.position;
         }
+
+        protected abstract void OnAiCountChange();
+
+        public void AddAi()
+        {
+            numAi++;
+            OnAiCountChange();
+        }
+
+        public void RemoveAi()
+        {
+            numAi--;
+            OnAiCountChange();
+        }
     }
 }

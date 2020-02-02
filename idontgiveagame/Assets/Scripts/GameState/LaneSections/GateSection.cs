@@ -8,5 +8,9 @@ namespace idgag.GameState.LaneSections
         {
             return numAi > capacity;
         }
+
+        protected override void OnAiCountChange()
+        {
+        }
     }
 }
