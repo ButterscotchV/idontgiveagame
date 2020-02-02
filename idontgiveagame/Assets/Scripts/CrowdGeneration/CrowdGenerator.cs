@@ -112,9 +112,7 @@ public class CrowdGenerator : MonoBehaviour
                     p.gameObject.SetActive(true);
                     idgag.AI.AiController aiController = p.GetComponent<idgag.AI.AiController>();
                     aiController.lane = currentLane;
-                    currentLane.m_aiInstances[total] = aiController;
-                    p.gameObject.GetComponent<BusinessPerson>().m_Lane = currentLane;
-                    p.gameObject.transform.parent = this.transform.GetChild(2).transform;
+                    currentLane.AddAiController(aiController, transform.GetChild(2).transform.position);
                     m_ActiveBusinessCrowd.Add(p);
                 }
                 // grab a environmental person
@@ -124,9 +122,7 @@ public class CrowdGenerator : MonoBehaviour
                     p.gameObject.SetActive(true);
                     idgag.AI.AiController aiController = p.GetComponent<idgag.AI.AiController>();
                     aiController.lane = currentLane;
-                    currentLane.m_aiInstances[total] = aiController;
-                    p.gameObject.GetComponent<EnvironmentalPerson>().m_Lane = currentLane;
-                    p.gameObject.transform.parent = this.transform.GetChild(3).transform;
+                    currentLane.AddAiController(aiController, transform.GetChild(3).transform.position);
                     m_ActiveEnvironmentalCrowd.Add(p);
                 }
                 else continue;
@@ -140,9 +136,7 @@ public class CrowdGenerator : MonoBehaviour
                     p.gameObject.SetActive(true);
                     idgag.AI.AiController aiController = p.GetComponent<idgag.AI.AiController>();
                     aiController.lane = currentLane;
-                    currentLane.m_aiInstances[total] = aiController;
-                    p.gameObject.GetComponent<BusinessPerson>().m_Lane = currentLane;
-                    p.gameObject.transform.parent = this.transform.GetChild(3).transform;
+                    currentLane.AddAiController(aiController, transform.GetChild(3).transform.position);
                     m_ActiveEnvironmentalCrowd.Add(p);
                 }
                 // grab a business person
@@ -152,9 +146,7 @@ public class CrowdGenerator : MonoBehaviour
                     p.gameObject.SetActive(true);
                     idgag.AI.AiController aiController = p.GetComponent<idgag.AI.AiController>();
                     aiController.lane = currentLane;
-                    currentLane.m_aiInstances[total] = aiController;
-                    p.gameObject.GetComponent<BusinessPerson>().m_Lane = currentLane;
-                    p.gameObject.transform.parent = this.transform.GetChild(2).transform;
+                    currentLane.AddAiController(aiController, transform.GetChild(2).transform.position);
                     m_ActiveBusinessCrowd.Add(p);
                 }
                 else continue;

@@ -104,23 +104,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 919548893211538802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfccfdabfe449f84c840c0ec3864fcf2, type: 3}
+  m_Script: {fileID: 11500000, guid: b44d8d37bbc89b945b64c20912995b1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BusinessPoolSize: 100
   EnvironmentalPoolSize: 100
   PoolPos: {x: -10000, y: -10000, z: -10000}
-  BusinessAppearLoc: {x: 0, y: 0, z: 0}
-  EnvironmentalAppearLoc: {x: 50, y: 0, z: 0}
   m_ActiveEnvironmentalCrowd: []
   m_ActiveBusinessCrowd: []
   TotalPPLPerWave: 100
-  offset_horizontal: 5
-  offset_vertical: 5
-  Column_Max: 10
-  BusinessPersonPrefab: {fileID: 6692156902853277483, guid: 3e845666e9bd0844bb024eb2b0a35f3a,
+  BusinessPersonPrefab: {fileID: 6692156902853277483, guid: f48e7893f25ab1a488f5cc483a486ff0,
     type: 3}
-  EnvironmentalPersonPrefab: {fileID: 6692156902853277483, guid: ccf8acb2904c33e4bb95edbae019bd93,
+  EnvironmentalPersonPrefab: {fileID: 6692156902853277483, guid: 4607d49d45732c449a17721f827aed7d,
     type: 3}
 --- !u!1 &919548894366518344
 GameObject:

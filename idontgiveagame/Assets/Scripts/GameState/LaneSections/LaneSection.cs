@@ -5,9 +5,9 @@ namespace idgag.GameState.LaneSections
     public abstract class LaneSection : MonoBehaviour
     {
         [SerializeField] protected GameObject aiDestination;
-        public uint numAi;
+        public int numAi;
 
-        private void Awake()
+        protected void Awake()
         {
             Debug.Assert(aiDestination != null, $"{nameof(aiDestination)} must be assigned");
         }

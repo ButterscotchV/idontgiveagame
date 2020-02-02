@@ -119,7 +119,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 50e2855f9cf639e44bd6b2bd278ed357, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 33f0e9a42930e46489ad7693c11c9a45, type: 2}
 --- !u!1 &38921579
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 38921579}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2684539d74eaf8489ef9df71014102a, type: 3}
+  m_Script: {fileID: 11500000, guid: b081078e4bb289d42929eb8cb5cac8b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   aiDestination: {fileID: 654889805}
@@ -213,15 +213,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 526767022}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caba20aa2113a99428eeec6f0d9cb2e6, type: 3}
+  m_Script: {fileID: 11500000, guid: cd1a263fb24463b4184d776b97a842fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   laneSections:
   - {fileID: 1733765285}
   - {fileID: 38921581}
   maxAiCount: 30
-  randomSpawnRange: 1
-  CrowdGeneratorPrefab: {fileID: 919548893211538802, guid: 3f87e884e4fd1714f8347d78dc215105,
+  CrowdGeneratorPrefab: {fileID: 919548893211538802, guid: 291210789be4bbb4ebdd782a93ad2a6f,
     type: 3}
   laneWidth: 5
   offset_horizontal: 1.5
@@ -229,7 +228,6 @@ MonoBehaviour:
   Column_Max: 3
   BusinessAppearLoc: {x: 0, y: 0, z: 0}
   EnvironmentalAppearLoc: {x: 0, y: 0, z: 0}
-  m_aiInstances: []
 --- !u!1 &547073009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,7 +1062,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1733765283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 457785f56c6e6e845b9373b314a9871a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c9e558ede09b684e97cb409c62df0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   aiDestination: {fileID: 821066990}
@@ -1096,12 +1094,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1828652757}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1569f45505e01db46ae203a1a615dd6e, type: 3}
+  m_Script: {fileID: 11500000, guid: 640dd0937e4ed7d47a8560f386e43ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lanes:
-  - {fileID: 526767024}
-  menuPrefab: {fileID: 6254407245145721270, guid: 1fbab7d16eca7dc419270886111f32a8,
+  lanes: []
+  menuPrefab: {fileID: 6254407245145721270, guid: 0ff4df4e735a9c140b9e1af1c6bab08e,
     type: 3}
   menuCanvas: {fileID: 0}
 --- !u!4 &1828652759
