@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6692156902853277486}
   - component: {fileID: 6692156902853277485}
   - component: {fileID: -1654418921960008014}
+  - component: {fileID: -5441759403825395741}
   m_Layer: 0
   m_Name: Economist AI
   m_TagString: Untagged
@@ -60,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fcd5169c41183284a86d9d9b1ebe412c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,8 +127,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6692156902853277483}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8df86490a483452fbb7506b86cb557f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b373d74b98fd2b4ca4bb5be3fb3b739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lane: {fileID: 0}
-  testMoving: 0
+--- !u!114 &-5441759403825395741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6692156902853277483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d7f630975f2efd409e654abe70fecd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

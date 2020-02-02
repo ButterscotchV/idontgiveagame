@@ -7,22 +7,22 @@ public class CrowdGenerator : MonoBehaviour
     public int BusinessPoolSize = 100;
     public int EnvironmentalPoolSize = 100;
     public Vector3 PoolPos = new Vector3(-10000, -10000, -10000);
-    public Vector3 BusinessAppearLoc = new Vector3(0, 0, 0);
-    public Vector3 EnvironmentalAppearLoc = new Vector3(200, 0, 0);
+    //public Vector3 BusinessAppearLoc = new Vector3(0, 0, 0);
+    //public Vector3 EnvironmentalAppearLoc = new Vector3(200, 0, 0);
     public List<SinglePerson> m_ActiveEnvironmentalCrowd;
     public List<SinglePerson> m_ActiveBusinessCrowd;
     public int TotalPPLPerWave = 100;
-    public float offset_horizontal = 5.0f;
-    public float offset_vertical = 5.0f;
-    public int Column_Max = 10;
+    //public float offset_horizontal = 5.0f;
+    //public float offset_vertical = 5.0f;
+    //public int Column_Max = 10;
     public GameObject BusinessPersonPrefab;
     public GameObject EnvironmentalPersonPrefab;
-    public int BusinessPercentage = 40;
-    public int EnvironmentalPercentage = 60;
+    //public int BusinessPercentage = 40;
+    //public int EnvironmentalPercentage = 60;
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         m_BusinessCrowdPool = new List<SinglePerson>();
         m_EnvironmentalCrowdPool = new List<SinglePerson>();
@@ -35,28 +35,28 @@ public class CrowdGenerator : MonoBehaviour
     void Update()
     {
         
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                GenerateActiveCrowd(TotalPPLPerWave);
-                Plot();
-                m_test = false;
-            }
+            //if(Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    GenerateActiveCrowd(TotalPPLPerWave,40,60);
+            //    //Plot();
+
+            //}
         
 
         
-            if(Input.GetKeyDown(KeyCode.Keypad1))
-            {
-                BackToBusinessPool();
-                m_test1 = false;
-            }
+            //if(Input.GetKeyDown(KeyCode.Keypad1))
+            //{
+            //    BackToBusinessPool();
+
+            //}
         
 
         
-            if(Input.GetKeyDown(KeyCode.Keypad2))
-            {
-                BackToEnvironmentalPool();
-                m_test2 = false;
-            }
+            //if(Input.GetKeyDown(KeyCode.Keypad2))
+            //{
+            //    BackToEnvironmentalPool();
+   
+            //}
         
 
 
@@ -64,8 +64,10 @@ public class CrowdGenerator : MonoBehaviour
 
     void SpawnPool()
     {
+       
         for (int i = 0; i < BusinessPoolSize; i++)
         {
+
             GameObject obj = Instantiate(BusinessPersonPrefab, PoolPos, Quaternion.identity);
             obj.SetActive(false);
             obj.transform.parent = this.transform.GetChild(0).transform;
@@ -125,7 +127,7 @@ public class CrowdGenerator : MonoBehaviour
     }
 
     // call this func every wave
-    public void GenerateActiveCrowd(int totalPPLSize)
+    public void GenerateActiveCrowd(int totalPPLSize,int BusinessPercentage, int EnvironmentalPercentage, idgag.GameState.Lane currentLane)
     {
         int randNum;
         int total = 0;
@@ -142,6 +144,9 @@ public class CrowdGenerator : MonoBehaviour
                 {
                     SinglePerson p = GetObjFromBusinessPool();
                     p.gameObject.SetActive(true);
+                    idgag.AI.AiController aiController = p.GetComponent<idgag.AI.AiController>();
+                    aiController.lane = currentLane;
+                    p.gameObject.GetComponent<BusinessPerson>().m_Lane = currentLane;
                     p.gameObject.transform.parent = this.transform.GetChild(2).transform;
                     m_ActiveBusinessCrowd.Add(p);
                 }
@@ -150,6 +155,9 @@ public class CrowdGenerator : MonoBehaviour
                 {
                     SinglePerson p = GetObjFromEnvironmentalPool();
                     p.gameObject.SetActive(true);
+                    idgag.AI.AiController aiController = p.GetComponent<idgag.AI.AiController>();
+                    aiController.lane = currentLane;
+                    p.gameObject.GetComponent<BusinessPerson>().m_Lane = currentLane;
                     p.gameObject.transform.parent = this.transform.GetChild(3).transform;
                     m_ActiveEnvironmentalCrowd.Add(p);
                 }
@@ -177,44 +185,48 @@ public class CrowdGenerator : MonoBehaviour
         }
     }
 
-    public void Plot()
+    public void Plot(float offset_horizontal, float offset_vertical, int Column_Max, Vector3 BusinessAppearLoc,  Vector3 EnvironmentalAppearLoc)
     {
-        PlotBusinessPeople();
-        PlotEnvironmentalPeople();
+        PlotBusinessPeople(offset_horizontal,offset_vertical,Column_Max, BusinessAppearLoc);
+        PlotEnvironmentalPeople(offset_horizontal, offset_vertical, Column_Max, EnvironmentalAppearLoc);
     }
-    public void PlotBusinessPeople()
+    public void PlotBusinessPeople(float offset_horizontal, float offset_vertical , int Column_Max, Vector3 BusinessAppearLoc)
     {
         Vector3 offsetHorizontal = new Vector3(offset_horizontal, 0, 0);
-        Vector3 offsetVertical = new Vector3(0, offset_vertical, 0);
+        Vector3 offsetVertical = new Vector3(0, 0, -offset_vertical);
         int steps_x = 0;
-        int steps_y = 0;
+        int steps_z = 0;
         foreach (SinglePerson p in m_ActiveBusinessCrowd)
         {
-            p.transform.position = BusinessAppearLoc + offsetHorizontal*steps_x + offsetVertical*steps_y;
-            steps_x++;
+            p.transform.position = BusinessAppearLoc + offsetHorizontal*steps_x + offsetVertical*steps_z;
+            
             if(steps_x == Column_Max-1)
             {
                 steps_x = 0;
-                steps_y++;
+                steps_z++;
+                continue;
             }
+            steps_x++;
         }
     }
 
-    public void PlotEnvironmentalPeople()
+    public void PlotEnvironmentalPeople(float offset_horizontal, float offset_vertical, int Column_Max, Vector3 EnvironmentalAppearLoc)
     {
         Vector3 offsetHorizontal = new Vector3(offset_horizontal, 0, 0);
-        Vector3 offsetVertical = new Vector3(0, offset_vertical, 0);
+        Vector3 offsetVertical = new Vector3(0,0 , -offset_vertical);
         int steps_x = 0;
-        int steps_y = 0;
+        int steps_z = 0;
         foreach (SinglePerson p in m_ActiveEnvironmentalCrowd)
         {
-            p.transform.position = EnvironmentalAppearLoc + offsetHorizontal*steps_x + offsetVertical*steps_y;
-            steps_x++;
+            p.transform.position = EnvironmentalAppearLoc + offsetHorizontal*steps_x + offsetVertical*steps_z;
+            
             if(steps_x == Column_Max-1)
             {
                 steps_x = 0;
-                steps_y++;
+                steps_z++;
+                continue;
             }
+            steps_x++;
         }
     }
 
@@ -222,10 +234,6 @@ public class CrowdGenerator : MonoBehaviour
     List<SinglePerson> m_CurrentWave;
     List<SinglePerson> m_BusinessCrowdPool;
     List<SinglePerson> m_EnvironmentalCrowdPool;
-    bool m_test = true;
-    bool m_test1 = true;
-    bool m_test2 = true;
-
 
 
 }

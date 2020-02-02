@@ -9,46 +9,45 @@ namespace idgag.GameState
     {
         [SerializeField] private LaneSection[] laneSections;
 
-        [SerializeField] private GameObject aiPrefab;
-        [SerializeField] private GameObject aiContainer;
-        [Min(1)] [SerializeField] private int maxAiCount = 100;
+        //[SerializeField] private GameObject aiPrefab;
+        //[SerializeField] private GameObject aiContainer;
+        [Min(1)] [SerializeField] private int maxAiCount = 10;
 
         private AiController[] aiInstances;
 
-        private List<AiController> aiControllers;
+        //private List<AiController> aiControllers;
         public LaneSection[] LaneSections => laneSections;
 
+        public GameObject CrowdGeneratorPrefab;
+
+        public float laneWidth = 5.0f;
+        public float offset_horizontal = 1.5f;
+        public float offset_vertical = 2.0f;
+        public int Column_Max = 3;
+        public Vector3 BusinessAppearLoc;
+        public Vector3 EnvironmentalAppearLoc;
         private void Start()
         {
-            Debug.Assert(aiPrefab != null, $"{nameof(aiPrefab)} must be assigned");
-            Debug.Assert(aiContainer != null, $"{nameof(aiPrefab)} must be assigned");
+
 
             aiInstances = new AiController[maxAiCount];
 
-            Debug.Log("Instantiating AI...");
-            for (int i = 0; i < aiInstances.Length; i++)
-            {
-                GameObject prefabInstance = Instantiate(aiPrefab, aiContainer.transform);
-                prefabInstance.SetActive(false);
-
-                AiController aiController = prefabInstance.GetComponent<AiController>();
-
-                Debug.Assert(aiController != null, $"{nameof(AiController)} wasn't properly instantiated with the ${aiPrefab}");
-                // This case shouldn't happen, but just in case, this will prevent a memory leak
-                if (aiController == null)
-                {
-                    Destroy(prefabInstance);
-                    continue;
-                }
-
-                aiController.lane = this;
-                aiInstances[i] = aiController;
-            }
+            GameObject crowdOBJ = Instantiate(CrowdGeneratorPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            crowdOBJ.transform.parent = this.transform;
+            BusinessAppearLoc = this.transform.position + new Vector3(-1.4f,0,0);
+            EnvironmentalAppearLoc = BusinessAppearLoc + new Vector3(0, 0, -10);
+            m_CrowdGenerator = crowdOBJ.GetComponent<CrowdGenerator>();
+            m_CrowdGenerator.GenerateActiveCrowd(maxAiCount, 40, 60,this);//testing, 40% of business person, 60% of environmental person
+            m_CrowdGenerator.Plot(offset_horizontal, offset_vertical, Column_Max, BusinessAppearLoc, EnvironmentalAppearLoc);
         }
 
-        public void AddAiControllers(IEnumerable<AiController> newAiControllers)
-        {
-            aiControllers.AddRange(newAiControllers);
-        }
+        //public void AddAiControllers(IEnumerable<AiController> newAiControllers)
+        //{
+        //    aiControllers.AddRange(newAiControllers);
+        //}
+
+        private CrowdGenerator m_CrowdGenerator;
     }
+
+
 }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6692156902853277486}
   - component: {fileID: 6692156902853277485}
   - component: {fileID: -3716044696864600778}
+  - component: {fileID: -8874844174148080772}
   m_Layer: 0
   m_Name: Environmentalist AI
   m_TagString: Untagged
@@ -60,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 45ab3d0174b9e3b448df79557b32a7ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,8 +127,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6692156902853277483}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57a364cf018643d0b0274a46cbefbf4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ef8ccdc75f857a44acd08d1d0c0622c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lane: {fileID: 0}
-  testMoving: 0
+--- !u!114 &-8874844174148080772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6692156902853277483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cf70fabadd8a6b42be930fc8a87bf1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

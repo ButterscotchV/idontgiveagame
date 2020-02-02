@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class SinglePerson : MonoBehaviour
 {
-
+    public idgag.GameState.Lane m_Lane;
 
     //public virtual void Init()
     //{
@@ -16,6 +16,6 @@ public abstract class SinglePerson : MonoBehaviour
 
     protected CrowdGenerator m_CrowdGeneratorRef;
     protected Vector3 m_PoolPos;
-
+    
 
 }

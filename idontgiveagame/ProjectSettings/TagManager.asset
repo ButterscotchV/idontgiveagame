@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - CrowdGenerator
+  - Lane
   layers:
   - Default
   - TransparentFX
