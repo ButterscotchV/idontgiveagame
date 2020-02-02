@@ -10,10 +10,11 @@ namespace idgag.GameState
     {
         [SerializeField] private LaneSection[] laneSections;
 
-        [Min(1)] [SerializeField] private int maxAiCount = 30;
-
         private readonly List<AiController> aiControllers = new List<AiController>();
         public AiController[] AiControllers => aiControllers.ToArray();
+
+        [Min(1)] [SerializeField] private int maxAiCount = 30;
+        public bool MoreAiAllowed => aiControllers.Count < maxAiCount;
 
         public LaneSection[] LaneSections => laneSections;
 
@@ -30,10 +31,13 @@ namespace idgag.GameState
             EnvironmentalAppearLoc = BusinessAppearLoc + new Vector3(0, 0, -10);
         }
 
-        public void AddAiController(AiController newAiController, Vector3 spawnPos)
+        public bool AddAiController(AiController newAiController, Vector3 spawnPos)
         {
             if (newAiController == null)
-                return;
+                return false;
+
+            if (aiControllers.Count >= maxAiCount)
+                return false;
 
             newAiController.lane = this;
             newAiController.gameObject.SetActive(true);
@@ -42,21 +46,8 @@ namespace idgag.GameState
             newAiController.TryMoveToStart();
 
             aiControllers.Add(newAiController);
-        }
 
-        public void AddAiControllers(IEnumerable<AiController> newAiControllers, Vector3 spawnPos)
-        {
-            foreach (AiController aiController in newAiControllers)
-            {
-                try
-                {
-                    AddAiController(aiController, spawnPos);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogException(e);
-                }
-            }
+            return true;
         }
 
         public void RemoveAiController(AiController aiControllerToRemove)

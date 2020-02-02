@@ -52,11 +52,14 @@ namespace idgag.GameState
 
         public void GenerateFuckBucketPercentages()
         {
+            if (fuckBuckets.Count <= 0)
+                return;
+
             int totalFucks = fuckBuckets.Sum(fuckBucket => fuckBucket.Value);
 
             foreach (KeyValuePair<FuckBucketTarget, int> fuckBucket in fuckBuckets)
             {
-                fuckBucketPercentages[fuckBucket.Key] = totalFucks > 0 ?fuckBucket.Value / (float)totalFucks : 0;
+                fuckBucketPercentages[fuckBucket.Key] = totalFucks > 0 ? fuckBucket.Value / (float)totalFucks : 1 / (float)fuckBuckets.Count;
             }
         }
 
@@ -92,6 +95,9 @@ namespace idgag.GameState
         {
             foreach (Lane lane in lanes)
             {
+                if (!lane.MoreAiAllowed)
+                    continue;
+
                 CrowdGenerator.GenerateActiveCrowd(CrowdGenerator.TotalPPLPerWave, fuckBucketPercentages[FuckBucketTarget.Economy], fuckBucketPercentages[FuckBucketTarget.Environment], lane);
 
                 // Plotting doesn't seem to be working, it's disabled for now
@@ -106,7 +112,6 @@ namespace idgag.GameState
             GenerateFuckBucketPercentages();
             RunAiTick();
             SpawnAi();
-
         }
 
         public void PresentPRStatement() {

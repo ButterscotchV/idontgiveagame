@@ -825,7 +825,7 @@ MonoBehaviour:
   - {fileID: 1003905587}
   - {fileID: 226081287}
   - {fileID: 312522983}
-  maxAiCount: 30
+  maxAiCount: 50
   laneWidth: 5
   offset_horizontal: 1.5
   offset_vertical: 2
@@ -1212,7 +1212,7 @@ MonoBehaviour:
   - {fileID: 1733765285}
   - {fileID: 38921581}
   - {fileID: 975794076}
-  maxAiCount: 30
+  maxAiCount: 50
   laneWidth: 5
   offset_horizontal: 1.5
   offset_vertical: 2
@@ -1708,7 +1708,7 @@ MonoBehaviour:
   - {fileID: 1871436328}
   - {fileID: 1702395570}
   - {fileID: 1617544874}
-  maxAiCount: 30
+  maxAiCount: 50
   laneWidth: 5
   offset_horizontal: 1.5
   offset_vertical: 2
@@ -2106,7 +2106,7 @@ MonoBehaviour:
   - {fileID: 1658761347}
   - {fileID: 1062899959}
   - {fileID: 1774552185}
-  maxAiCount: 30
+  maxAiCount: 50
   laneWidth: 5
   offset_horizontal: 1.5
   offset_vertical: 2
@@ -3109,7 +3109,7 @@ MonoBehaviour:
   - {fileID: 1496862893}
   - {fileID: 1157929515}
   - {fileID: 1077252381}
-  maxAiCount: 30
+  maxAiCount: 50
   laneWidth: 5
   offset_horizontal: 1.5
   offset_vertical: 2
@@ -3292,7 +3292,7 @@ MonoBehaviour:
   - {fileID: 440206181}
   - {fileID: 256399497}
   - {fileID: 548152912}
-  maxAiCount: 30
+  maxAiCount: 50
   laneWidth: 5
   offset_horizontal: 1.5
   offset_vertical: 2
@@ -4520,7 +4520,7 @@ MonoBehaviour:
   - {fileID: 1534024327}
   - {fileID: 932222634}
   - {fileID: 1537384882}
-  maxAiCount: 30
+  maxAiCount: 50
   laneWidth: 5
   offset_horizontal: 1.5
   offset_vertical: 2
