@@ -6,5 +6,9 @@ namespace idgag.GameState.LaneSections
         {
             return true;
         }
+
+        protected override void OnAiCountChange()
+        {
+        }
     }
 }

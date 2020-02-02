@@ -25,6 +25,8 @@ namespace idgag.GameState
         public GameObject crowdGeneratorPrefab;
         public CrowdGenerator CrowdGenerator { get; private set; }
 
+        public PresenterAnimator presenterAnimator;
+
         public static GameState Singleton { get; private set; }
 
         private void Awake() {
@@ -35,6 +37,8 @@ namespace idgag.GameState
 
             GameObject crowdObj = Instantiate(crowdGeneratorPrefab, transform);
             CrowdGenerator = crowdObj.GetComponent<CrowdGenerator>();
+
+            presenterAnimator = FindObjectOfType<PresenterAnimator>();
 
             foreach (FuckBucketTarget fuckBucketTarget in Enum.GetValues(typeof(FuckBucketTarget))) {
                 fuckBuckets.Add(fuckBucketTarget, 50);
@@ -107,8 +111,21 @@ namespace idgag.GameState
             }
         }
 
+        private WaitForSeconds presenterWait = new WaitForSeconds(5);
+        public IEnumerator<object> PresenterAnimationCoroutine()
+        {
+            presenterAnimator.Present(true);
+
+            yield return presenterWait;
+
+            presenterAnimator.Present(false);
+        }
+
         public void RunRound()
         {
+            if (presenterAnimator != null)
+                StartCoroutine(PresenterAnimationCoroutine());
+
             GenerateFuckBucketPercentages();
             RunAiTick();
             SpawnAi();

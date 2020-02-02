@@ -81,12 +81,12 @@ namespace idgag.AI
                     if (!curSection.IsAllowedToPass())
                         return false;
 
-                    curSection.numAi--;
+                    curSection.RemoveAi();
                 }
 
                 laneSectionIndex++;
                 LaneSection newSection = laneSections[laneSectionIndex];
-                newSection.numAi++;
+                newSection.AddAi();
 
                 Vector3 destPos = newSection.GetAiPosition();
 
@@ -134,7 +134,7 @@ namespace idgag.AI
             if (laneSectionIndex < 0) return;
 
             LaneSection curSection = lane.LaneSections[laneSectionIndex];
-            curSection.numAi--;
+            curSection.RemoveAi();
         }
     }
 }
