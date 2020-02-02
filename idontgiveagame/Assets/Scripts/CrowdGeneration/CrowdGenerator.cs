@@ -87,7 +87,7 @@ public class CrowdGenerator : MonoBehaviour
             if (Random.Range(0f, 1f) < businessPercentage)
             {
                 EconomistAi p = TakeFromBusinessPool();
-                currentLane.AddAiController(p, transform.GetChild(2).transform.position);
+                currentLane.AddAiController(p, currentLane.transform.position);
                 m_ActiveBusinessCrowd.Add(p);
             }
 
@@ -95,7 +95,7 @@ public class CrowdGenerator : MonoBehaviour
             else
             {
                 EnvironmentalistAi p = TakeFromEnvironmentalPool();
-                currentLane.AddAiController(p, transform.GetChild(3).transform.position);
+                currentLane.AddAiController(p, currentLane.transform.position);
                 m_ActiveEnvironmentalCrowd.Add(p);
             }
         }
@@ -103,7 +103,7 @@ public class CrowdGenerator : MonoBehaviour
 
     public void Plot(float offsetHorizontal, float offsetVertical, int columnMax, Vector3 businessAppearLoc,  Vector3 environmentalAppearLoc)
     {
-        PlotBusinessPeople(offsetHorizontal,offsetVertical,columnMax, businessAppearLoc);
+        PlotBusinessPeople(offsetHorizontal,offsetVertical, columnMax, businessAppearLoc);
         PlotEnvironmentalPeople(offsetHorizontal, offsetVertical, columnMax, environmentalAppearLoc);
     }
 

@@ -90,7 +90,11 @@ namespace idgag.GameState
             foreach (Lane lane in lanes)
             {
                 CrowdGenerator.GenerateActiveCrowd(CrowdGenerator.TotalPPLPerWave, fuckBucketPercentages[FuckBucketTarget.Economy], fuckBucketPercentages[FuckBucketTarget.Environment], lane);
-                CrowdGenerator.Plot(lane.offset_horizontal, lane.offset_vertical, lane.Column_Max, lane.BusinessAppearLoc, lane.EnvironmentalAppearLoc);
+
+                // Plotting doesn't seem to be working, it's disabled for now
+                CrowdGenerator.m_ActiveBusinessCrowd.Clear();
+                CrowdGenerator.m_ActiveEnvironmentalCrowd.Clear();
+                //CrowdGenerator.Plot(lane.offset_horizontal, lane.offset_vertical, lane.Column_Max, lane.BusinessAppearLoc, lane.EnvironmentalAppearLoc);
             }
         }
 
