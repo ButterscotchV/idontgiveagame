@@ -32,7 +32,7 @@ namespace idgag.GameState
             GameObject menu = Instantiate(menuPrefab);
             menuCanvas = menu.GetComponent<Canvas>();
 
-            GameObject crowdObj = Instantiate(crowdGeneratorPrefab, new Vector3(0, 0, 0), Quaternion.identity, transform);
+            GameObject crowdObj = Instantiate(crowdGeneratorPrefab, transform);
             CrowdGenerator = crowdObj.GetComponent<CrowdGenerator>();
 
             foreach (FuckBucketTarget fuckBucketTarget in Enum.GetValues(typeof(FuckBucketTarget))) {
