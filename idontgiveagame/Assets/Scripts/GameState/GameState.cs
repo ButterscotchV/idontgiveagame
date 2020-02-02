@@ -5,6 +5,7 @@ using idgag.AI;
 using idgag.GameState.LaneSections;
 using idgag.WordGame;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace idgag.GameState
 {
@@ -40,6 +41,8 @@ namespace idgag.GameState
             }
 
             RunRound();
+            PresentPRStatement();
+
         }
 
         private void OnDestroy() {
@@ -96,10 +99,10 @@ namespace idgag.GameState
 
         public void RunRound()
         {
-            PresentPRStatement();
             GenerateFuckBucketPercentages();
             RunAiTick();
             SpawnAi();
+
         }
 
         public void PresentPRStatement() {
@@ -107,24 +110,71 @@ namespace idgag.GameState
                 statement = new PRStatement();
 
                 Sentence sentence = statement.getSentence();
+
+                Debug.Log(sentence.getWords().Count);
+                string prefabPath = "WordGame/Word";
+                string teleprompterPath = "WordGame/Teleprompter";
+                string dropdownPath = "WordGame/Choice";
+
+                GameObject teleprompter = Instantiate(Resources.Load<GameObject>(teleprompterPath), menuCanvas.gameObject.transform);
+                Transform wordParent = teleprompter.transform.Find("Panel/Viewport/Content/WordPanel");
+
                 // do unity loading stuff for UI here
-                foreach (Word word in sentence.getWords()) {
+
+                List<Word> words = sentence.getWords();
+                for (int i = 0; i < words.Count; i++) {
+                    Word word = words.ElementAt(i);
+
+                    // Display vanilla word
                     if (!word.isOption()) {
-                        Debug.Log(word.getVanillaWord());
+                        GameObject newVanillaWordObject = Instantiate(Resources.Load<GameObject>(prefabPath), wordParent.transform);
+                        WordUI ui = newVanillaWordObject.GetComponent<WordUI>();
+
+                        ui.setText(word.getVanillaWord());
+                        
                         continue;
                     }
 
-                    Debug.Log(word.getChoices().Keys);
+                    // Add choice dropdown
+                    GameObject newChoiceObject = Instantiate(Resources.Load<GameObject>(dropdownPath), wordParent.transform);
+                    ChoiceUI choiceObject = newChoiceObject.GetComponent<ChoiceUI>();
+
+                    if (word.isOption()) {
+                        choiceObject.SetOptions(word.getChoice().options.Keys.ToList(), i);
+                    }
+
+                    choiceObject.enabled = true;
                 }
+
+                Transform ok = teleprompter.transform.Find("ButtonPanel").Find("OK");
+                Button okButton = ok.gameObject.GetComponent<Button>();
+
+                okButton.onClick.AddListener(delegate {
+                    okButton.onClick.RemoveAllListeners();
+                    this.SubmitPrStatements();
+                    this.RunRound();
+                    Destroy(teleprompter);
+                    statement = null;
+                    PresentPRStatement();
+
+                });
             }
         }
 
-        public void SubmitPrStatements(List<FucksBucketMod> fucksBucketMods) {
+        public void SubmitPrStatements() {
+            List<FucksBucketMod> fucksBucketMods = statement.getSentence().CalculateFuckBuckets();
+
             foreach (FucksBucketMod fucksBucketMod in fucksBucketMods) {
                 if (fuckBuckets.ContainsKey(fucksBucketMod.fucksBucketKey))
                     fuckBuckets[fucksBucketMod.fucksBucketKey] += fucksBucketMod.baseChange * fucksBucketMod.modifier;
                 else
                     Debug.Log($"{nameof(fucksBucketMod)} provided invalid {nameof(fucksBucketMod.fucksBucketKey)}");
+            }
+        }
+
+        public void AlterPRStatements(int index, string value) {
+            if (statement != null) {
+                statement.getSentence().ChooseOption(index, value);
             }
         }
     }

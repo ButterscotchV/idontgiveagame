@@ -31,6 +31,14 @@ namespace idgag.WordGame {
                     options.Add(label.ToString(), newOption);
                 }
             }
+
+
+            if (!options.ContainsKey(maximum.ToString())) {
+                Option newOption;
+                newOption.value = 5;
+
+                options.Add(maximum.ToString(), newOption);
+            }
         }
 
         public UIntegerChoice(string min) : base() {
@@ -54,6 +62,14 @@ namespace idgag.WordGame {
                     options.Add(label.ToString(), newOption);
                 }
             }
+
+
+            if (!options.ContainsKey(maximum.ToString())) {
+                Option newOption;
+                newOption.value = 5;
+
+                options.Add(maximum.ToString(), newOption);
+            }
         }
 
         public UIntegerChoice() : base() {
@@ -70,10 +86,16 @@ namespace idgag.WordGame {
                 float label = (float)Mathf.Clamp(minimum + (i * spreadPerOption), minimum, maximum);
                 newOption.value = (int)((label / maximum) * 5.0f);
 
-
                 if (!options.ContainsKey(label.ToString())) {
                     options.Add(label.ToString(), newOption);
                 }
+            }
+
+            if (!options.ContainsKey(maximum.ToString())) {
+                Option newOption;
+                newOption.value = 5;
+
+                options.Add(maximum.ToString(), newOption);
             }
         }
     }
