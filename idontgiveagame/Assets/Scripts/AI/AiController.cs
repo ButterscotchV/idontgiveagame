@@ -9,15 +9,54 @@ namespace idgag.AI
     [RequireComponent(typeof(NavMeshAgent))]
     public abstract class AiController : MonoBehaviour
     {
+        [SerializeField] private float sectionAnimationDistance = 1.22474487f;
+        private float sectionAnimationDistanceSqr;
+
         private NavMeshAgent navMeshAgent;
 
         public Lane lane;
         private int laneSectionIndex = -1;
 
+        private bool walking;
+
         protected void Awake()
         {
+            sectionAnimationDistanceSqr = sectionAnimationDistance * sectionAnimationDistance;
+
             navMeshAgent = GetComponent<NavMeshAgent>();
             Debug.Assert(navMeshAgent != null, $"{nameof(NavMeshAgent)} could not be found on the {nameof(GameObject)}");
+        }
+
+        protected abstract void AnimateRiot();
+        protected abstract void AnimateWalk();
+
+        private float Dist2D(Vector3 from, Vector3 to)
+        {
+            float xComponent = to.x - from.x;
+            float yComponent = to.y - from.y;
+
+            return (xComponent * xComponent) + (yComponent * yComponent);
+        }
+
+        protected void FixedUpdate()
+        {
+            Vector3 myPos = transform.position;
+            Vector3 targetPos = navMeshAgent.destination;
+
+            if (Dist2D(myPos, targetPos) <= sectionAnimationDistanceSqr)
+            {
+                if (!walking) return;
+
+                walking = false; // Play riot animation
+                AnimateRiot();
+            }
+            else
+            {
+                if (walking) return;
+
+                walking = true; // Play walking animation
+                AnimateWalk();
+            }
         }
 
         public abstract void RunAiLogic();

@@ -17,6 +17,16 @@ namespace idgag.AI
             base.Awake();
         }
 
+        protected override void AnimateRiot()
+        {
+            //Debug.Log("I'm very angry");
+        }
+
+        protected override void AnimateWalk()
+        {
+            //Debug.Log("Aight imma head out");
+        }
+
         public override void RunAiLogic()
         {
             if (!GameState.GameState.Singleton.fuckBucketPercentages.TryGetValue(FuckBucketTarget.Environment, out float fuckBucketPercent))

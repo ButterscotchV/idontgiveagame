@@ -57,7 +57,7 @@ namespace idgag.GameState
 
             foreach (KeyValuePair<FuckBucketTarget, int> fuckBucket in fuckBuckets)
             {
-                fuckBucketPercentages[fuckBucket.Key] = fuckBucket.Value / (float)totalFucks;
+                fuckBucketPercentages[fuckBucket.Key] = totalFucks > 0 ?fuckBucket.Value / (float)totalFucks : 0;
             }
         }
 
