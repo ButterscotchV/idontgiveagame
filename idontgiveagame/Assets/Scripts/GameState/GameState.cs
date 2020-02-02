@@ -169,8 +169,11 @@ namespace idgag.GameState
                 newRound = true;
             }
 
-            TMP_Text health = menuCanvas.transform.Find("Health").GetComponent<TMP_Text>();
+            TMP_Text health = menuCanvas.transform.Find("Image/Health").GetComponent<TMP_Text>();
             health.text = fuckBuckets.Sum(fuckBucket => fuckBucket.Value).ToString();
+
+            TMP_Text towerHealth = menuCanvas.transform.Find("Tower/Health").GetComponent<TMP_Text>();
+            towerHealth.text = currentHealth.ToString();
         }
 
         public void PresentLoseBox() {
