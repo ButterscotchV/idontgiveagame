@@ -11,9 +11,10 @@ namespace idgag.AI
     {
         public float fucksPercentThreshold;
 
-        private void Awake()
+        private new void Awake()
         {
             fucksPercentThreshold = Random.Range(0.50f, 0.75f);
+            base.Awake();
         }
 
         public override void RunAiLogic()
