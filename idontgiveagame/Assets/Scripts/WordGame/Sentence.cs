@@ -23,7 +23,7 @@ namespace idgag.WordGame
         List<Word> words = new List<Word>();
 
         public Sentence(string sentence) {
-            if (sentence == null) return;
+            if (sentence == null || sentence == "") return;
 
             words = new List<Word>();
 
@@ -33,7 +33,6 @@ namespace idgag.WordGame
                 // handle word
                 // is it a token
                 words.Add(new Word(word));
-                Debug.Log(word);
             }
 
         }
@@ -42,11 +41,26 @@ namespace idgag.WordGame
             return words;
         }
 
+        public List<FucksBucketMod> CalculateFuckBuckets() {
+
+            return new List<FucksBucketMod>();
+        }
+
         private static List<string> parseWords(string sentence) {
             string[] words = sentence.Split(' ');
             return words.OfType<string>().ToList();
         }
 
+        public void ChooseOption(int index, string option) {
+            Word word = words.ElementAt(index);
+
+            if (word != null) {
+                if (word.isOption()) {
+                    word.getChoice().ChooseOption(option);
+                }
+                
+            }
+        }
         public static List<Sentence> getSentences() {
             FileInfo source = new FileInfo(FILE_PATH);
             StreamReader reader = source.OpenText();
@@ -56,6 +70,7 @@ namespace idgag.WordGame
 
             while (text != null) {
                 text = reader.ReadLine();
+                if (text == null) continue;
 
                 Sentence newSentence = new Sentence(text);
                 if (newSentence != null) allSentences.Add(newSentence);
