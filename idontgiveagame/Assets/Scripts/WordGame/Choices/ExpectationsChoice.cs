@@ -28,11 +28,11 @@ namespace idgag.WordGame {
             options.Add("okay", okay);
 
             Option poor;
-            poor.value = 0;
+            poor.value = -1;
             options.Add("poor", poor);
 
             Option terrible;
-            terrible.value = 0;
+            terrible.value = -2;
             options.Add("terrible", terrible);
         }
     }

@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6692156902853277486}
   - component: {fileID: 6692156902853277485}
   - component: {fileID: -3716044696864600778}
-  - component: {fileID: -8874844174148080772}
   m_Layer: 0
   m_Name: Environmentalist AI
   m_TagString: Untagged
@@ -62,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: a7c99025906340d4d9975f24bf5fd5c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -128,96 +127,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6692156902853277483}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea65ba84842247346b87ebe71a358977, type: 3}
+  m_Script: {fileID: 11500000, guid: 57a364cf018643d0b0274a46cbefbf4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Lane: {fileID: 0}
---- !u!114 &-8874844174148080772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6692156902853277483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a1bda860895b9f4fa5072d15da65410, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  sectionAnimationDistance: 1.2247449
   lane: {fileID: 0}
-  fucksPercentThreshold: 0
---- !u!1001 &7543508085901102141
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6692156902853277473}
-    m_Modifications:
-    - target: {fileID: 777561320074825138, guid: da4af7a0d2eceb645afafe696a5b1625,
-        type: 3}
-      propertyPath: m_Name
-      value: PicketerWithAnims
-      objectReference: {fileID: 0}
-    - target: {fileID: 4364315960978587553, guid: da4af7a0d2eceb645afafe696a5b1625,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 23.163416
-      objectReference: {fileID: 0}
-    - target: {fileID: 4364315960978587553, guid: da4af7a0d2eceb645afafe696a5b1625,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 11.732187
-      objectReference: {fileID: 0}
-    - target: {fileID: 4364315960978587553, guid: da4af7a0d2eceb645afafe696a5b1625,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 18.505463
-      objectReference: {fileID: 0}
-    - target: {fileID: 4364315960978587553, guid: da4af7a0d2eceb645afafe696a5b1625,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4364315960978587553, guid: da4af7a0d2eceb645afafe696a5b1625,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4364315960978587553, guid: da4af7a0d2eceb645afafe696a5b1625,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4364315960978587553, guid: da4af7a0d2eceb645afafe696a5b1625,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4364315960978587553, guid: da4af7a0d2eceb645afafe696a5b1625,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4364315960978587553, guid: da4af7a0d2eceb645afafe696a5b1625,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4364315960978587553, guid: da4af7a0d2eceb645afafe696a5b1625,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4364315960978587553, guid: da4af7a0d2eceb645afafe696a5b1625,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: da4af7a0d2eceb645afafe696a5b1625, type: 3}
---- !u!4 &6070507726459253660 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4364315960978587553, guid: da4af7a0d2eceb645afafe696a5b1625,
-    type: 3}
-  m_PrefabInstance: {fileID: 7543508085901102141}
-  m_PrefabAsset: {fileID: 0}
+  fuckTarget: 1
+  minFucksPercentThreshold: 0.5
+  maxFucksPercentThreshold: 0.75

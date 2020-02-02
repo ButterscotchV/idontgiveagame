@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6692156902853277486}
   - component: {fileID: 6692156902853277485}
   - component: {fileID: -1654418921960008014}
-  - component: {fileID: -5441759403825395741}
   m_Layer: 0
   m_Name: Economist AI
   m_TagString: Untagged
@@ -61,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: e81b5c9ca84d7f848a84e301127e9fc6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,21 +126,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6692156902853277483}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d34cbcb6e29d7a4e8b4156be595c4ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 8df86490a483452fbb7506b86cb557f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Lane: {fileID: 0}
---- !u!114 &-5441759403825395741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6692156902853277483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d36e21ec2ee38248a2a432a893effb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  sectionAnimationDistance: 1.2247449
   lane: {fileID: 0}
-  fucksPercentThreshold: 0
+  fuckTarget: 0
+  minFucksPercentThreshold: 0.5
+  maxFucksPercentThreshold: 0.75

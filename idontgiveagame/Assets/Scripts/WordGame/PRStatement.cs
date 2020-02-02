@@ -12,18 +12,17 @@ namespace idgag.WordGame
             List<Sentence> sentences = Sentence.getSentences();
 
             System.Random r = new System.Random();
-            int sentence = r.Next(0, sentences.Count);
-            Debug.Log("Chose PR Sentence!");
-            Debug.Log(sentence);
-            Debug.Log(sentences.ElementAt(sentence));
 
-            prSentence = sentences.ElementAt(sentence);
+            while (prSentence == null) {
+                int sentence = r.Next(0, sentences.Count);
+
+                prSentence = sentences.ElementAt(sentence);
+            }
+
         }
 
         public Sentence getSentence() {
-            Debug.Log("Get PR Sentence!");
             return prSentence;
         }
-
     }
 }
