@@ -6,6 +6,7 @@ using idgag.GameState.LaneSections;
 using idgag.WordGame;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 namespace idgag.GameState
@@ -55,7 +56,6 @@ namespace idgag.GameState
             }
 
             RunRound();
-            PresentPRStatement();
 
         }
 
@@ -145,6 +145,7 @@ namespace idgag.GameState
                 statement = null;
                 PresentPRStatement();
             }
+
             GenerateFuckBucketPercentages();
             RunAiTick();
             RunDamageTick();
@@ -172,6 +173,11 @@ namespace idgag.GameState
             TMP_Text fucksGivenBox = loseBox.transform.Find("FucksGiven").GetComponent<TMP_Text>();
             fucksGivenBox.text = totalFucks.ToString();
 
+            Button tryAgainButton = loseBox.transform.Find("TryAgain").GetComponent<Button>();
+            tryAgainButton.onClick.AddListener(delegate {
+                Scene scene = SceneManager.GetActiveScene();
+                SceneManager.LoadScene(scene.name);
+            });
         }
 
         public void PresentPRStatement() {
@@ -223,8 +229,6 @@ namespace idgag.GameState
                     this.SubmitPrStatements();
                     this.RunRound();
                     Destroy(teleprompter);
-
-
                 });
             }
         }
