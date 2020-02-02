@@ -1,15 +1,35 @@
+using System;
+using UnityEngine;
+
 namespace idgag.AI
 {
     public class EnvironmentalistAi : AiController
     {
+        private Animator animator;
+        private static readonly int IsIdle = Animator.StringToHash("IsIdle");
+        private static readonly int IsWalking = Animator.StringToHash("IsWalking");
+
+        protected new void Awake()
+        {
+            base.Awake();
+
+            animator = GetComponentInChildren<Animator>();
+        }
+
+        protected void Start()
+        {
+            animator.SetBool(IsIdle, false);
+            animator.SetBool(IsWalking, true);
+        }
+
         protected override void AnimateRiot()
         {
-            //Debug.Log("I'm very angry");
+            animator.SetBool(IsWalking, false);
         }
 
         protected override void AnimateWalk()
         {
-            //Debug.Log("Aight imma head out");
+            animator.SetBool(IsWalking, true);
         }
 
         public override void RunAiLogic()
