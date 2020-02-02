@@ -111,7 +111,7 @@ namespace idgag.GameState
             }
         }
 
-        private WaitForSeconds presenterWait = new WaitForSeconds(5);
+        private readonly WaitForSeconds presenterWait = new WaitForSeconds(3);
         public IEnumerator<object> PresenterAnimationCoroutine()
         {
             presenterAnimator.Present(true);
