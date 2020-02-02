@@ -1,27 +1,34 @@
-using System;
 using idgag.GameState;
 using idgag.GameState.LaneSections;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace idgag.AI
 {
     [RequireComponent(typeof(NavMeshAgent))]
     public abstract class AiController : MonoBehaviour
     {
-        [SerializeField] private float sectionAnimationDistance = 1.22474487f;
-        private float sectionAnimationDistanceSqr;
+        [SerializeField] protected float sectionAnimationDistance = 1.22474487f;
+        protected float sectionAnimationDistanceSqr;
 
-        private NavMeshAgent navMeshAgent;
+        protected NavMeshAgent navMeshAgent;
 
         public Lane lane;
-        private int laneSectionIndex = -1;
+        protected int laneSectionIndex = -1;
 
-        private bool walking;
+        public FuckBucketTarget fuckTarget;
+
+        public float minFucksPercentThreshold = 0.5f;
+        public float maxFucksPercentThreshold = 0.75f;
+        protected float fucksPercentThreshold;
+
+        protected bool walking;
 
         protected void Awake()
         {
             sectionAnimationDistanceSqr = sectionAnimationDistance * sectionAnimationDistance;
+            fucksPercentThreshold = Random.Range(minFucksPercentThreshold, maxFucksPercentThreshold);
 
             navMeshAgent = GetComponent<NavMeshAgent>();
             Debug.Assert(navMeshAgent != null, $"{nameof(NavMeshAgent)} could not be found on the {nameof(GameObject)}");
