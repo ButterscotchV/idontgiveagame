@@ -19,16 +19,16 @@ namespace idgag.AI
 
         public override void RunAiLogic()
         {
-            if (GameState.GameState.Singleton.GetFuckBucketPercent(FuckBucketTarget.Economy) < fucksPercentThreshold)
+            if (!GameState.GameState.Singleton.fuckBucketPercentages.TryGetValue(FuckBucketTarget.Economy, out float fuckBucketPercent))
+                return;
+
+            if (fuckBucketPercent < fucksPercentThreshold)
             {
                 TryMoveForward();
             }
             else
             {
-                gameObject.SetActive(false);
-
-                if (lane != null)
-                    lane.RemoveAiController(this);
+                Remove();
             }
         }
     }

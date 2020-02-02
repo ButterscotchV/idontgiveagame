@@ -17,7 +17,8 @@ namespace idgag.GameState
 
         public float randomSpawnRange = 1;
 
-        private List<AiController> aiControllers = new List<AiController>();
+        private readonly List<AiController> aiControllers = new List<AiController>();
+        public AiController[] AiControllers => aiControllers.ToArray();
         public LaneSection[] LaneSections => laneSections;
 
         private void Start()

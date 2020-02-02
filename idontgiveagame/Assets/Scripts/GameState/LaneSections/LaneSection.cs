@@ -5,7 +5,7 @@ namespace idgag.GameState.LaneSections
     public abstract class LaneSection : MonoBehaviour
     {
         [SerializeField] protected GameObject aiDestination;
-        public uint numAi;
+        public int numAi;
 
         private void Awake()
         {
