@@ -28,10 +28,7 @@ namespace idgag.AI
             }
             else
             {
-                gameObject.SetActive(false);
-
-                if (lane != null)
-                    lane.RemoveAiController(this);
+                Remove();
             }
         }
     }
