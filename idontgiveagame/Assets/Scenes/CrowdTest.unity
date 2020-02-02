@@ -904,13 +904,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567987388}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.3987491, y: 0, z: 0, w: 0.91706014}
+  m_LocalPosition: {x: 0, y: 15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 47, y: 0, z: 0}
 --- !u!1 &1587415820
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,7 +1070,6 @@ MonoBehaviour:
   - {fileID: 526767024}
   menuPrefab: {fileID: 6254407245145721270, guid: 0ff4df4e735a9c140b9e1af1c6bab08e,
     type: 3}
-  menuCanvas: {fileID: 0}
   econFucks: 0
   envFucks: 0
   runAiTick: 0
