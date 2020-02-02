@@ -9,14 +9,14 @@ public class CrowdGenerator : MonoBehaviour
     public int EnvironmentalPoolSize = 100;
 
     public List<EnvironmentalistAi> m_ActiveEnvironmentalCrowd = new List<EnvironmentalistAi>();
-    public List<EconomistAi> m_ActiveBusinessCrowd  = new List<EconomistAi>();
+    public List<EconomistAi> m_ActiveBusinessCrowd = new List<EconomistAi>();
     public int TotalPPLPerWave = 10;
 
     public GameObject BusinessPersonPrefab;
     public GameObject EnvironmentalPersonPrefab;
 
-    List<EconomistAi> m_BusinessCrowdPool = new List<EconomistAi>();
-    List<EnvironmentalistAi> m_EnvironmentalCrowdPool = new List<EnvironmentalistAi>();
+    public List<EconomistAi> m_BusinessCrowdPool = new List<EconomistAi>();
+    public List<EnvironmentalistAi> m_EnvironmentalCrowdPool = new List<EnvironmentalistAi>();
 
     // Start is called before the first frame update
     void Awake()
@@ -101,13 +101,13 @@ public class CrowdGenerator : MonoBehaviour
         }
     }
 
-    public void Plot(float offsetHorizontal, float offsetVertical, int columnMax, Vector3 businessAppearLoc,  Vector3 environmentalAppearLoc)
+    public void Plot(float offsetHorizontal, float offsetVertical, int columnMax, Vector3 businessAppearLoc, Vector3 environmentalAppearLoc)
     {
-        PlotBusinessPeople(offsetHorizontal,offsetVertical, columnMax, businessAppearLoc);
+        PlotBusinessPeople(offsetHorizontal, offsetVertical, columnMax, businessAppearLoc);
         PlotEnvironmentalPeople(offsetHorizontal, offsetVertical, columnMax, environmentalAppearLoc);
     }
 
-    public void PlotBusinessPeople(float offset_horizontal, float offset_vertical , int Column_Max, Vector3 BusinessAppearLoc)
+    public void PlotBusinessPeople(float offset_horizontal, float offset_vertical, int Column_Max, Vector3 BusinessAppearLoc)
     {
         Vector3 offsetHorizontal = new Vector3(offset_horizontal, 0, 0);
         Vector3 offsetVertical = new Vector3(0, 0, -offset_vertical);
@@ -120,9 +120,9 @@ public class CrowdGenerator : MonoBehaviour
             if (p == null)
                 continue;
 
-            p.transform.position = BusinessAppearLoc + offsetHorizontal*steps_x + offsetVertical*steps_z;
-            
-            if(steps_x == Column_Max-1)
+            p.transform.position = BusinessAppearLoc + offsetHorizontal * steps_x + offsetVertical * steps_z;
+
+            if (steps_x == Column_Max - 1)
             {
                 steps_x = 0;
                 steps_z++;
@@ -138,7 +138,7 @@ public class CrowdGenerator : MonoBehaviour
     public void PlotEnvironmentalPeople(float offset_horizontal, float offset_vertical, int Column_Max, Vector3 EnvironmentalAppearLoc)
     {
         Vector3 offsetHorizontal = new Vector3(offset_horizontal, 0, 0);
-        Vector3 offsetVertical = new Vector3(0,0 , -offset_vertical);
+        Vector3 offsetVertical = new Vector3(0, 0, -offset_vertical);
 
         int steps_x = 0;
         int steps_z = 0;
@@ -148,9 +148,9 @@ public class CrowdGenerator : MonoBehaviour
             if (p == null)
                 continue;
 
-            p.transform.position = EnvironmentalAppearLoc + offsetHorizontal*steps_x + offsetVertical*steps_z;
-            
-            if(steps_x == Column_Max-1)
+            p.transform.position = EnvironmentalAppearLoc + offsetHorizontal * steps_x + offsetVertical * steps_z;
+
+            if (steps_x == Column_Max - 1)
             {
                 steps_x = 0;
                 steps_z++;

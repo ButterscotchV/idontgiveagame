@@ -7,6 +7,7 @@ using idgag.WordGame;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
 using TMPro;
 
 namespace idgag.GameState
@@ -60,6 +61,14 @@ namespace idgag.GameState
             RunRound();
             PresentPRStatement();
 
+            // Wire up bomb button
+            var button = menuCanvas.transform.Find("BombButton").GetComponent<Button>();
+
+            button.onClick.AddListener(delegate
+            {
+                ThrowBomb();
+            });
+
         }
 
         private void ResetHealth() {
@@ -86,6 +95,15 @@ namespace idgag.GameState
             }
         }
 
+
+        public void ThrowBomb()
+        {
+            string bombPrefab = "FuckBomb";
+            Vector3 spawnPos = new Vector3(0, 0, 0);
+            spawnPos = new Vector3(UnityEngine.Random.Range(-8, 20), 5, UnityEngine.Random.Range(30, 35));
+            GameObject bomb = Instantiate(Resources.Load(bombPrefab) as GameObject, spawnPos, Quaternion.identity);
+
+        }
         public int CountAiAtStage()
         {
             int aiAtStage = 0;
@@ -124,7 +142,7 @@ namespace idgag.GameState
                 CrowdGenerator.GenerateActiveCrowd(CrowdGenerator.TotalPPLPerWave, fuckBucketPercentages[FuckBucketTarget.Economy], fuckBucketPercentages[FuckBucketTarget.Environment], lane);
 
                 // Plotting doesn't seem to be working, it's disabled for now
-                CrowdGenerator.m_ActiveBusinessCrowd.Clear();
+                CrowdGenerator.m_BusinessCrowdPool.Clear();
                 CrowdGenerator.m_ActiveEnvironmentalCrowd.Clear();
                 //CrowdGenerator.Plot(lane.offset_horizontal, lane.offset_vertical, lane.Column_Max, lane.BusinessAppearLoc, lane.EnvironmentalAppearLoc);
             }
