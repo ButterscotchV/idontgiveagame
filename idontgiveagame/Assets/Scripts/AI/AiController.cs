@@ -76,19 +76,5 @@ namespace idgag.AI
         {
             return navMeshAgent.SetDestination(newDestination);
         }
-
-        public void Remove()
-        {
-            gameObject.SetActive(false);
-
-            if (lane == null) return;
-
-            lane.RemoveAiController(this);
-
-            if (laneSectionIndex < 0) return;
-
-            LaneSection curSection = lane.LaneSections[laneSectionIndex];
-            curSection.numAi--;
-        }
     }
 }

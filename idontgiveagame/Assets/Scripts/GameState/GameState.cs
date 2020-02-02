@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using idgag.AI;
 using idgag.WordGame;
 using UnityEngine;
 
@@ -12,7 +10,6 @@ namespace idgag.GameState
         private PRStatement statement;
 
         public readonly Dictionary<FuckBucketTarget, int> fuckBuckets = new Dictionary<FuckBucketTarget, int>();
-        public readonly Dictionary<FuckBucketTarget, float> fuckBucketPercentages = new Dictionary<FuckBucketTarget, float>();
         [SerializeField] private Lane[] lanes;
 
         public Lane[] Lanes => lanes;
@@ -51,44 +48,20 @@ namespace idgag.GameState
         {
         }
 
-        public void GenerateFuckBucketPercentages()
+        public float GetFuckBucketPercent(FuckBucketTarget fuckBucketTarget)
         {
-            int totalFucks = fuckBuckets.Sum(fuckBucket => fuckBucket.Value);
+            int totalFucks = 0;
+            int specifiedFucks = 0;
 
             foreach (KeyValuePair<FuckBucketTarget, int> fuckBucket in fuckBuckets)
             {
-                fuckBucketPercentages[fuckBucket.Key] = fuckBucket.Value / (float)totalFucks;
-            }
-        }
+                if (fuckBucket.Key == fuckBucketTarget)
+                    specifiedFucks = fuckBucket.Value;
 
-        public int CountAiAtStage()
-        {
-            int aiAtStage = 0;
-            
-            foreach (Lane lane in lanes)
-            {
-                LaneSection[] laneSections = lane.LaneSections;
-
-                if (laneSections.Length <= 0)
-                    continue;
-
-                aiAtStage += laneSections[laneSections.Length - 1].numAi;
+                totalFucks += fuckBucket.Value;
             }
 
-            return aiAtStage;
-        }
-
-        public void RunAiTick()
-        {
-            GenerateFuckBucketPercentages();
-
-            foreach (Lane lane in lanes)
-            {
-                foreach (AiController laneAiController in lane.AiControllers)
-                {
-                    laneAiController.RunAiLogic();
-                }
-            }
+            return specifiedFucks / (float)totalFucks;
         }
 
         public void PresentPRStatement() {

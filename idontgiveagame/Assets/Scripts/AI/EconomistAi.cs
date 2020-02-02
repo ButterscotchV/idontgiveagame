@@ -11,7 +11,7 @@ namespace idgag.AI
     {
         public float fucksPercentThreshold;
 
-        private new void Awake()
+        protected new void Awake()
         {
             fucksPercentThreshold = Random.Range(0.50f, 0.75f);
             base.Awake();
@@ -19,16 +19,16 @@ namespace idgag.AI
 
         public override void RunAiLogic()
         {
-            if (!GameState.GameState.Singleton.fuckBucketPercentages.TryGetValue(FuckBucketTarget.Economy, out float fuckBucketPercent))
-                return;
-
-            if (fuckBucketPercent < fucksPercentThreshold)
+            if (GameState.GameState.Singleton.GetFuckBucketPercent(FuckBucketTarget.Economy) < fucksPercentThreshold)
             {
                 TryMoveForward();
             }
             else
             {
-                Remove();
+                gameObject.SetActive(false);
+
+                if (lane != null)
+                    lane.RemoveAiController(this);
             }
         }
     }
