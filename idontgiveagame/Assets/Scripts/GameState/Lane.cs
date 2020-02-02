@@ -12,7 +12,9 @@ namespace idgag.GameState
 
         [Min(1)] [SerializeField] private int maxAiCount = 30;
 
-        public readonly List<AiController> aiControllers = new List<AiController>();
+        private readonly List<AiController> aiControllers = new List<AiController>();
+        public AiController[] AiControllers => aiControllers.ToArray();
+
         public LaneSection[] LaneSections => laneSections;
 
         public GameObject CrowdGeneratorPrefab;

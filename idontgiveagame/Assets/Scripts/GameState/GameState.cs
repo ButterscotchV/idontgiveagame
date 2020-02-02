@@ -85,7 +85,7 @@ namespace idgag.GameState
 
             foreach (Lane lane in lanes)
             {
-                foreach (AiController laneAiController in lane.aiControllers)
+                foreach (AiController laneAiController in lane.AiControllers)
                 {
                     laneAiController.RunAiLogic();
                 }
