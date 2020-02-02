@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6692156902853277486}
   - component: {fileID: 6692156902853277485}
   - component: {fileID: -3716044696864600778}
-  - component: {fileID: -8874844174148080772}
   m_Layer: 0
   m_Name: Environmentalist AI
   m_TagString: Untagged
@@ -135,16 +134,3 @@ MonoBehaviour:
   fuckTarget: 1
   minFucksPercentThreshold: 0.5
   maxFucksPercentThreshold: 0.75
---- !u!114 &-8874844174148080772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6692156902853277483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f9c045c4e6806a4e926217813cae057, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Lane: {fileID: 0}

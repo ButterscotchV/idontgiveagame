@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6692156902853277486}
   - component: {fileID: 6692156902853277485}
   - component: {fileID: -1654418921960008014}
-  - component: {fileID: 2865573109357331435}
   m_Layer: 0
   m_Name: Economist AI
   m_TagString: Untagged
@@ -135,16 +134,3 @@ MonoBehaviour:
   fuckTarget: 0
   minFucksPercentThreshold: 0.5
   maxFucksPercentThreshold: 0.75
---- !u!114 &2865573109357331435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6692156902853277483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88c4352efad0719439ced943c287a36e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Lane: {fileID: 0}
