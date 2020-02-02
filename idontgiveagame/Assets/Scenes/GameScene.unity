@@ -1409,6 +1409,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amountToSink: 190
+  percentPerTime: 0.005
+  curPercent: 1
+  targetPercent: 1
 --- !u!1 &904925123
 GameObject:
   m_ObjectHideFlags: 0
@@ -3060,6 +3063,7 @@ MonoBehaviour:
   crowdGeneratorPrefab: {fileID: 919548893211538802, guid: 291210789be4bbb4ebdd782a93ad2a6f,
     type: 3}
   presenterAnimator: {fileID: 0}
+  buildingShrinker: {fileID: 0}
 --- !u!4 &1828652759
 Transform:
   m_ObjectHideFlags: 0
