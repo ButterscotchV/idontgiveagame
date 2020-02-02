@@ -15,15 +15,21 @@ namespace idgag.WordGame {
         public FuckBucketChoice() : base() { initialize();}
 
         private void initialize() {
+            this.operation = ChoiceOperation.KEY;
+
             // Get fuck bucket names
             var values = Enum.GetValues(typeof(FuckBucketTarget)).Cast<FuckBucketTarget>();
 
             foreach (FuckBucketTarget fuckBucketTarget in values) {
                 string label = Enum.GetName(typeof(FuckBucketTarget), fuckBucketTarget);
-                Option newOption;
+                Option newOption = new Option();
                 newOption.value = (int)fuckBucketTarget;
                
                 options.Add(label, newOption);
+
+                if (this.currentChoice == null) {
+                    this.currentChoice = newOption;
+                }
             }
         }
     }

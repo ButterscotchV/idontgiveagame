@@ -15,25 +15,31 @@ namespace idgag.WordGame {
         public ExpectationsChoice() : base() { initialize();}
 
         private void initialize() {
-            Option great;
+            this.operation = ChoiceOperation.MULT;
+
+            Option great = new Option();
             great.value = 2;
             options.Add("great", great);
 
-            Option good;
+            Option good = new Option();
             good.value = 1;
             options.Add("good", good);
 
-            Option okay;
+            Option okay = new Option();
             okay.value = 0;
             options.Add("okay", okay);
 
-            Option poor;
+            Option poor = new Option();
             poor.value = -1;
             options.Add("poor", poor);
 
-            Option terrible;
+            Option terrible = new Option();
             terrible.value = -2;
             options.Add("terrible", terrible);
+
+            if (this.currentChoice == null) {
+                this.currentChoice = great;
+            }
         }
     }
 

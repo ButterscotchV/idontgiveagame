@@ -18,8 +18,6 @@ namespace idgag.WordGame
     {
         public static string FILE_PATH = "Assets/Config/whatigiveafuckabout.txt";
 
-        List<FucksBucketMod> modifications;
-
         List<Word> words = new List<Word>();
 
         public Sentence(string sentence) {
@@ -42,8 +40,45 @@ namespace idgag.WordGame
         }
 
         public List<FucksBucketMod> CalculateFuckBuckets() {
+            // Get List of choices
+            List<FucksBucketMod> mods = new List<FucksBucketMod>();
 
-            return new List<FucksBucketMod>();
+            FucksBucketMod mod;
+            mod.baseChange = 0;
+            mod.fucksBucketKey = FuckBucketTarget.Economy;
+            mod.modifier = 1;
+
+            foreach (Word word in words) {
+                if (word.isOption()) {
+                    Choice choice = word.getChoice();
+                    switch (choice.GetOperation()) {
+                        case ChoiceOperation.ADD: {
+                                mod.baseChange += choice.getCurrentChoice().value;
+                                
+                                break;
+                            }
+                        case ChoiceOperation.MULT: {
+                                mod.modifier *= choice.getCurrentChoice().value;
+                                
+                                break;
+
+                            }
+                        case ChoiceOperation.KEY: {
+                                mod.fucksBucketKey = (FuckBucketTarget)choice.getCurrentChoice().value;
+                            break;
+                        }
+                        default:
+                            Debug.Log("Operation not found");
+                            break;
+                    }
+
+                }
+            }
+
+            mods.Add(mod);
+
+            // Apply the calculation
+            return mods;
         }
 
         private static List<string> parseWords(string sentence) {

@@ -15,11 +15,17 @@ namespace idgag.WordGame {
         public NotFoundChoice() : base() { initialize();}
 
         private void initialize() {
+            this.operation = ChoiceOperation.ADD;
+
             // Create decreasing option
-            Option notfound;
+            Option notfound = new Option();
             notfound.value = 0;
 
             options.Add("PARAMETER NOT FOUND", notfound);
+
+            if (this.currentChoice == null) {
+                this.currentChoice = notfound;
+            }
 
         }
     }

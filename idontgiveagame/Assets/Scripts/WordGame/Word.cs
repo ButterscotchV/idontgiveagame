@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Linq;
+using idgag.GameState;
+using UnityEngine;
 
 namespace idgag.WordGame
 {
@@ -10,7 +13,6 @@ namespace idgag.WordGame
         bool option;
         string word;
         Choice choice;
-
 
         public bool isOption() {
             return this.option;
@@ -30,7 +32,7 @@ namespace idgag.WordGame
                 this.option = true;
 
                 choice = ChoiceFactory.getChoice(word);
-
+                
                 this.word = "";
             } else {
 

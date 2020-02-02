@@ -21,7 +21,7 @@ namespace idgag.WordGame {
             int numberOfOptions = 10;
             int spreadPerOption = (maximum - minimum) / numberOfOptions;
             for (int i = 1; i < numberOfOptions + 1; i++) {
-                Option newOption;
+                Option newOption = new Option();
                 int label = minimum + (i * spreadPerOption);
 
                 newOption.value = label;
@@ -31,7 +31,7 @@ namespace idgag.WordGame {
             }
 
             if (!options.ContainsKey(maximum.ToString())) {
-                Option newOption;
+                Option newOption = new Option();
                 newOption.value = 5;
 
                 options.Add(maximum.ToString(), newOption);
@@ -49,7 +49,7 @@ namespace idgag.WordGame {
             maximum = Mathf.Clamp(maximum, 0, 100);
 
             for (int i = 1; i < maximum + 1; i++) {
-                Option newOption;
+                Option newOption = new Option();
                 int label = 0 + (i);
 
                 newOption.value = label / 100 * 5;
@@ -59,7 +59,7 @@ namespace idgag.WordGame {
             }
 
             if (!options.ContainsKey(maximum.ToString())) {
-                Option newOption;
+                Option newOption = new Option();
                 newOption.value = 5;
 
                 options.Add(maximum.ToString(), newOption);
@@ -75,7 +75,7 @@ namespace idgag.WordGame {
             int numberOfOptions = 10;
             int spreadPerOption = (maximum - minimum) / numberOfOptions;
             for (int i = 0; i < numberOfOptions + 1; i++) {
-                Option newOption;
+                Option newOption = new Option();
                 int label = 0 + (i * spreadPerOption);
 
                 newOption.value = label / 100 * 5;
@@ -85,7 +85,7 @@ namespace idgag.WordGame {
             }
 
             if (!options.ContainsKey(maximum.ToString())) {
-                Option newOption;
+                Option newOption = new Option();
                 newOption.value = 5;
 
                 options.Add(maximum.ToString(), newOption);

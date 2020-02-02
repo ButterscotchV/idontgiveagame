@@ -120,7 +120,6 @@ namespace idgag.GameState
 
                 Sentence sentence = statement.getSentence();
 
-                Debug.Log(sentence.getWords().Count);
                 string prefabPath = "WordGame/Word";
                 string teleprompterPath = "WordGame/Teleprompter";
                 string dropdownPath = "WordGame/Choice";
@@ -173,11 +172,16 @@ namespace idgag.GameState
         public void SubmitPrStatements() {
             List<FucksBucketMod> fucksBucketMods = statement.getSentence().CalculateFuckBuckets();
 
+
             foreach (FucksBucketMod fucksBucketMod in fucksBucketMods) {
-                if (fuckBuckets.ContainsKey(fucksBucketMod.fucksBucketKey))
+                if (fuckBuckets.ContainsKey(fucksBucketMod.fucksBucketKey)) { 
                     fuckBuckets[fucksBucketMod.fucksBucketKey] += fucksBucketMod.baseChange * fucksBucketMod.modifier;
-                else
+
+                    Debug.Log(fuckBuckets[fucksBucketMod.fucksBucketKey]);
+                }
+                else 
                     Debug.Log($"{nameof(fucksBucketMod)} provided invalid {nameof(fucksBucketMod.fucksBucketKey)}");
+
             }
         }
 

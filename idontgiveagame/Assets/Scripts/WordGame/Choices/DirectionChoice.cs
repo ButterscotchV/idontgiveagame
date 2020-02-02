@@ -15,16 +15,22 @@ namespace idgag.WordGame {
         public DirectionChoice() : base() { initialize();}
 
         private void initialize() {
+            this.operation = ChoiceOperation.MULT;
+
             // Create decreasing option
-            Option decreasing;
+            Option decreasing = new Option();
             decreasing.value = -1;
 
-            options.Add("decreasing", decreasing);
+            options.Add("decrease", decreasing);
 
-            Option increasing;
+            Option increasing = new Option();
             increasing.value = 1;
 
-            options.Add("increasing", increasing);
+            options.Add("increase", increasing);
+
+            if (this.currentChoice == null) {
+                this.currentChoice = decreasing;
+            }
         }
     }
 

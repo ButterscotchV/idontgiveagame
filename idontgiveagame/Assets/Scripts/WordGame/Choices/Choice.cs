@@ -8,11 +8,10 @@ namespace idgag.WordGame {
     {
         MULT,
         ADD,
-        DIRECTION,
         KEY
     }
 
-    public struct Option
+    public class Option
     {
         public int value;
     }
@@ -21,7 +20,7 @@ namespace idgag.WordGame {
     {
         public Dictionary<string, Option> options;
         protected ChoiceOperation operation;
-        private Option currentChoice;
+        protected Option currentChoice;
 
         public Choice() {
             options = new Dictionary<string, Option>();
@@ -29,6 +28,10 @@ namespace idgag.WordGame {
 
         public Option getCurrentChoice() {
             return currentChoice;
+        }
+
+        public ChoiceOperation GetOperation() {
+            return operation;
         }
 
         public void ChooseOption(string key) {
