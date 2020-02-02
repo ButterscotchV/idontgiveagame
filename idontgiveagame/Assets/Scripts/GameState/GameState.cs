@@ -5,6 +5,7 @@ using idgag.AI;
 using idgag.GameState.LaneSections;
 using idgag.WordGame;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace idgag.GameState
 {
@@ -40,6 +41,8 @@ namespace idgag.GameState
             }
 
             RunRound();
+            PresentPRStatement();
+
         }
 
         private void OnDestroy() {
@@ -96,10 +99,10 @@ namespace idgag.GameState
 
         public void RunRound()
         {
-            //PresentPRStatement();
             GenerateFuckBucketPercentages();
             RunAiTick();
             SpawnAi();
+
         }
 
         public void PresentPRStatement() {
@@ -108,17 +111,18 @@ namespace idgag.GameState
 
                 Sentence sentence = statement.getSentence();
 
+                Debug.Log(sentence.getWords().Count);
                 string prefabPath = "WordGame/Word";
                 string teleprompterPath = "WordGame/Teleprompter";
                 string dropdownPath = "WordGame/Choice";
 
                 GameObject teleprompter = Instantiate(Resources.Load<GameObject>(teleprompterPath), menuCanvas.gameObject.transform);
-                Transform wordParent = teleprompter.transform.Find("WordPanel");
+                Transform wordParent = teleprompter.transform.Find("Panel/Viewport/Content/WordPanel");
+
                 // do unity loading stuff for UI here
 
                 List<Word> words = sentence.getWords();
                 for (int i = 0; i < words.Count; i++) {
-                    
                     Word word = words.ElementAt(i);
 
                     // Display vanilla word
@@ -141,6 +145,19 @@ namespace idgag.GameState
 
                     choiceObject.enabled = true;
                 }
+
+                Transform ok = teleprompter.transform.Find("ButtonPanel").Find("OK");
+                Button okButton = ok.gameObject.GetComponent<Button>();
+
+                okButton.onClick.AddListener(delegate {
+                    okButton.onClick.RemoveAllListeners();
+                    this.SubmitPrStatements();
+                    this.RunRound();
+                    Destroy(teleprompter);
+                    statement = null;
+                    PresentPRStatement();
+
+                });
             }
         }
 
