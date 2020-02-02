@@ -7,18 +7,14 @@ public class CrowdGenerator : MonoBehaviour
     public int BusinessPoolSize = 100;
     public int EnvironmentalPoolSize = 100;
     public Vector3 PoolPos = new Vector3(-10000, -10000, -10000);
-    //public Vector3 BusinessAppearLoc = new Vector3(0, 0, 0);
-    //public Vector3 EnvironmentalAppearLoc = new Vector3(200, 0, 0);
+
     public List<SinglePerson> m_ActiveEnvironmentalCrowd;
     public List<SinglePerson> m_ActiveBusinessCrowd;
     public int TotalPPLPerWave = 100;
-    //public float offset_horizontal = 5.0f;
-    //public float offset_vertical = 5.0f;
-    //public int Column_Max = 10;
+
     public GameObject BusinessPersonPrefab;
     public GameObject EnvironmentalPersonPrefab;
-    //public int BusinessPercentage = 40;
-    //public int EnvironmentalPercentage = 60;
+
 
 
     // Start is called before the first frame update
@@ -31,36 +27,6 @@ public class CrowdGenerator : MonoBehaviour
         SpawnPool();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-            //if(Input.GetKeyDown(KeyCode.Space))
-            //{
-            //    GenerateActiveCrowd(TotalPPLPerWave,40,60);
-            //    //Plot();
-
-            //}
-        
-
-        
-            //if(Input.GetKeyDown(KeyCode.Keypad1))
-            //{
-            //    BackToBusinessPool();
-
-            //}
-        
-
-        
-            //if(Input.GetKeyDown(KeyCode.Keypad2))
-            //{
-            //    BackToEnvironmentalPool();
-   
-            //}
-        
-
-
-    }
 
     void SpawnPool()
     {
@@ -127,7 +93,7 @@ public class CrowdGenerator : MonoBehaviour
     }
 
     // call this func every wave
-    public void GenerateActiveCrowd(int totalPPLSize,int BusinessPercentage, int EnvironmentalPercentage, idgag.GameState.Lane currentLane)
+    public void GenerateActiveCrowd(int totalPPLSize,int BusinessPercentage, int EnvironmentalPercentage, idgag.GameState. Lane currentLane)
     {
         int randNum;
         int total = 0;
@@ -146,6 +112,7 @@ public class CrowdGenerator : MonoBehaviour
                     p.gameObject.SetActive(true);
                     idgag.AI.AiController aiController = p.GetComponent<idgag.AI.AiController>();
                     aiController.lane = currentLane;
+                    currentLane.m_aiInstances[total] = aiController;
                     p.gameObject.GetComponent<BusinessPerson>().m_Lane = currentLane;
                     p.gameObject.transform.parent = this.transform.GetChild(2).transform;
                     m_ActiveBusinessCrowd.Add(p);
@@ -157,7 +124,8 @@ public class CrowdGenerator : MonoBehaviour
                     p.gameObject.SetActive(true);
                     idgag.AI.AiController aiController = p.GetComponent<idgag.AI.AiController>();
                     aiController.lane = currentLane;
-                    p.gameObject.GetComponent<BusinessPerson>().m_Lane = currentLane;
+                    currentLane.m_aiInstances[total] = aiController;
+                    p.gameObject.GetComponent<EnvironmentalPerson>().m_Lane = currentLane;
                     p.gameObject.transform.parent = this.transform.GetChild(3).transform;
                     m_ActiveEnvironmentalCrowd.Add(p);
                 }
@@ -170,6 +138,11 @@ public class CrowdGenerator : MonoBehaviour
                 {
                     SinglePerson p = GetObjFromEnvironmentalPool();
                     p.gameObject.SetActive(true);
+                    idgag.AI.AiController aiController = p.GetComponent<idgag.AI.AiController>();
+                    aiController.lane = currentLane;
+                    currentLane.m_aiInstances[total] = aiController;
+                    p.gameObject.GetComponent<BusinessPerson>().m_Lane = currentLane;
+                    p.gameObject.transform.parent = this.transform.GetChild(3).transform;
                     m_ActiveEnvironmentalCrowd.Add(p);
                 }
                 // grab a business person
@@ -177,6 +150,11 @@ public class CrowdGenerator : MonoBehaviour
                 {
                     SinglePerson p = GetObjFromBusinessPool();
                     p.gameObject.SetActive(true);
+                    idgag.AI.AiController aiController = p.GetComponent<idgag.AI.AiController>();
+                    aiController.lane = currentLane;
+                    currentLane.m_aiInstances[total] = aiController;
+                    p.gameObject.GetComponent<BusinessPerson>().m_Lane = currentLane;
+                    p.gameObject.transform.parent = this.transform.GetChild(2).transform;
                     m_ActiveBusinessCrowd.Add(p);
                 }
                 else continue;
@@ -198,7 +176,7 @@ public class CrowdGenerator : MonoBehaviour
         int steps_z = 0;
         foreach (SinglePerson p in m_ActiveBusinessCrowd)
         {
-            p.transform.position = BusinessAppearLoc + offsetHorizontal*steps_x + offsetVertical*steps_z;
+            p.gameObject.transform.position = BusinessAppearLoc + offsetHorizontal*steps_x + offsetVertical*steps_z;
             
             if(steps_x == Column_Max-1)
             {
@@ -218,7 +196,7 @@ public class CrowdGenerator : MonoBehaviour
         int steps_z = 0;
         foreach (SinglePerson p in m_ActiveEnvironmentalCrowd)
         {
-            p.transform.position = EnvironmentalAppearLoc + offsetHorizontal*steps_x + offsetVertical*steps_z;
+            p.gameObject.transform.position = EnvironmentalAppearLoc + offsetHorizontal*steps_x + offsetVertical*steps_z;
             
             if(steps_x == Column_Max-1)
             {

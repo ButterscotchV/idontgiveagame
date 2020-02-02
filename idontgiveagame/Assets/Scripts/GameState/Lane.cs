@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using idgag.AI;
 using idgag.GameState.LaneSections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace idgag.GameState
 {
@@ -10,12 +12,12 @@ namespace idgag.GameState
         [SerializeField] private LaneSection[] laneSections;
 
         //[SerializeField] private GameObject aiPrefab;
-        //[SerializeField] private GameObject aiContainer;
+       // [SerializeField] private GameObject aiContainer;
         [Min(1)] [SerializeField] private int maxAiCount = 10;
 
-        private AiController[] aiInstances;
+        public float randomSpawnRange = 1;
 
-        //private List<AiController> aiControllers;
+        private List<AiController> aiControllers = new List<AiController>();
         public LaneSection[] LaneSections => laneSections;
 
         public GameObject CrowdGeneratorPrefab;
@@ -30,24 +32,81 @@ namespace idgag.GameState
         {
 
 
-            aiInstances = new AiController[maxAiCount];
+            m_aiInstances = new AiController[maxAiCount];
 
             GameObject crowdOBJ = Instantiate(CrowdGeneratorPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             crowdOBJ.transform.parent = this.transform;
-            BusinessAppearLoc = this.transform.position + new Vector3(-1.4f,0,0);
+            BusinessAppearLoc = this.transform.position + new Vector3(-1.4f, 3, 0);
             EnvironmentalAppearLoc = BusinessAppearLoc + new Vector3(0, 0, -10);
             m_CrowdGenerator = crowdOBJ.GetComponent<CrowdGenerator>();
-            m_CrowdGenerator.GenerateActiveCrowd(maxAiCount, 40, 60,this);//testing, 40% of business person, 60% of environmental person
+            m_CrowdGenerator.GenerateActiveCrowd(maxAiCount, 40, 60, this);//testing, 40% of business person, 60% of environmental person
             m_CrowdGenerator.Plot(offset_horizontal, offset_vertical, Column_Max, BusinessAppearLoc, EnvironmentalAppearLoc);
+
+            AddAiControllers(m_aiInstances);
         }
 
-        //public void AddAiControllers(IEnumerable<AiController> newAiControllers)
-        //{
-        //    aiControllers.AddRange(newAiControllers);
-        //}
+        public void AssignaiInstances(AiController[] ai, int index,AiController ac)
+        {
+            ai[index] = ac;
+        }
 
+        public void AddAiController(AiController newAiController)
+        {
+            if (newAiController == null)
+                return;
+
+            newAiController.lane = this;
+            newAiController.gameObject.SetActive(true);
+
+            Vector3 spawnOffset = new Vector3(Random.Range(-randomSpawnRange, randomSpawnRange), 0, Random.Range(-randomSpawnRange, randomSpawnRange));
+            newAiController.ResetController(laneSections.Length > 0 ? laneSections[0].GetAiPosition() + spawnOffset : Vector3.zero);
+
+            newAiController.TryMoveToStart();
+
+            aiControllers.Add(newAiController);
+        }
+
+        public void AddAiControllers(params AiController[] newAiControllers)
+        {
+            foreach (AiController aiController in newAiControllers)
+            {
+                try
+                {
+                    AddAiController(aiController);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
+        }
+
+        public void AddAiControllers(IEnumerable<AiController> newAiControllers)
+        {
+            foreach (AiController aiController in newAiControllers)
+            {
+                try
+                {
+                    AddAiController(aiController);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
+        }
+
+        public void RemoveAiController(AiController aiControllerToRemove)
+        {
+            if (aiControllerToRemove == null)
+                return;
+
+            aiControllers.Remove(aiControllerToRemove);
+        }
+
+
+
+        public AiController[] m_aiInstances;
         private CrowdGenerator m_CrowdGenerator;
     }
-
-
 }
