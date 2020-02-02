@@ -10,8 +10,6 @@ namespace idgag.GameState
     {
         [SerializeField] private LaneSection[] laneSections;
 
-        //[SerializeField] private GameObject aiPrefab;
-       // [SerializeField] private GameObject aiContainer;
         [Min(1)] [SerializeField] private int maxAiCount = 30;
 
         public readonly List<AiController> aiControllers = new List<AiController>();
@@ -30,11 +28,13 @@ namespace idgag.GameState
 
         private void Start()
         {
-            GameObject crowdOBJ = Instantiate(CrowdGeneratorPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            crowdOBJ.transform.parent = this.transform;
-            BusinessAppearLoc = this.transform.position + new Vector3(-1.4f, 0, 0);
+            GameObject crowdObj = Instantiate(CrowdGeneratorPrefab, new Vector3(0, 0, 0), Quaternion.identity, transform);
+
+            BusinessAppearLoc = transform.position + new Vector3(-1.4f, 0, 0);
             EnvironmentalAppearLoc = BusinessAppearLoc + new Vector3(0, 0, -10);
-            m_CrowdGenerator = crowdOBJ.GetComponent<CrowdGenerator>();
+
+            m_CrowdGenerator = crowdObj.GetComponent<CrowdGenerator>();
+
             m_CrowdGenerator.GenerateActiveCrowd(maxAiCount, 40, 60, this);//testing, 40% of business person, 60% of environmental person
             m_CrowdGenerator.Plot(offset_horizontal, offset_vertical, Column_Max, BusinessAppearLoc, EnvironmentalAppearLoc);
         }
@@ -74,6 +74,18 @@ namespace idgag.GameState
                 return;
 
             aiControllers.Remove(aiControllerToRemove);
+
+            // Remove from CrowdGenerator pool
+            switch (aiControllerToRemove)
+            {
+                case EconomistAi economistAi:
+                    m_CrowdGenerator.m_ActiveBusinessCrowd.Remove(economistAi);
+                    break;
+
+                case EnvironmentalistAi environmentalistAi:
+                    m_CrowdGenerator.m_ActiveEnvironmentalCrowd.Remove(environmentalistAi);
+                    break;
+            }
         }
     }
 }

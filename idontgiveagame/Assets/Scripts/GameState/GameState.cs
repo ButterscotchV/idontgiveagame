@@ -19,7 +19,7 @@ namespace idgag.GameState
         public Lane[] Lanes => lanes;
 
         public GameObject menuPrefab;
-        public Canvas menuCanvas;
+        [NonSerialized] public Canvas menuCanvas;
 
         public static GameState Singleton { get; private set; }
 
