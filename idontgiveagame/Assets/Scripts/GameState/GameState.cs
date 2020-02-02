@@ -168,13 +168,16 @@ namespace idgag.GameState
 
                 newRound = true;
             }
+
+            TMP_Text health = menuCanvas.transform.Find("Health").GetComponent<TMP_Text>();
+            health.text = fuckBuckets.Sum(fuckBucket => fuckBucket.Value).ToString();
         }
 
         public void PresentLoseBox() {
             string loseBoxPath = "WordGame/LoseBox";
             GameObject loseBox = Instantiate(Resources.Load<GameObject>(loseBoxPath), menuCanvas.gameObject.transform);
 
-            int totalFucks = fuckBuckets.Sum(fuckBucket => fuckBucket.Value);
+            int totalFucks = fuckBuckets.Sum(fuckBucket => Math.Abs(fuckBucket.Value));
 
             TMP_Text fucksGivenBox = loseBox.transform.Find("FucksGiven").GetComponent<TMP_Text>();
             fucksGivenBox.text = totalFucks.ToString();
