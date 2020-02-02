@@ -1,34 +1,29 @@
-using System;
-using idgag.GameState;
-using idgag.GameState.LaneSections;
-using UnityEngine;
-using UnityEngine.AI;
-using Random = UnityEngine.Random;
-
 namespace idgag.AI
 {
     public class EnvironmentalistAi : AiController
     {
-        public float fucksPercentThreshold;
-
-        private new void Awake()
+        protected override void AnimateRiot()
         {
-            fucksPercentThreshold = Random.Range(0.50f, 0.75f);
-            base.Awake();
+            //Debug.Log("I'm very angry");
+        }
+
+        protected override void AnimateWalk()
+        {
+            //Debug.Log("Aight imma head out");
         }
 
         public override void RunAiLogic()
         {
-            if (GameState.GameState.Singleton.GetFuckBucketPercent(FuckBucketTarget.Environment) < fucksPercentThreshold)
+            if (!GameState.GameState.Singleton.fuckBucketPercentages.TryGetValue(fuckTarget, out float fuckBucketPercent))
+                return;
+
+            if (fuckBucketPercent < fucksPercentThreshold)
             {
                 TryMoveForward();
             }
             else
             {
-                gameObject.SetActive(false);
-
-                if (lane != null)
-                    lane.RemoveAiController(this);
+                Remove();
             }
         }
     }

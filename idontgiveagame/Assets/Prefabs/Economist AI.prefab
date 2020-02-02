@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e81b5c9ca84d7f848a84e301127e9fc6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -129,5 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df86490a483452fbb7506b86cb557f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sectionAnimationDistance: 1.2247449
   lane: {fileID: 0}
-  testMoving: 0
+  fuckTarget: 0
+  minFucksPercentThreshold: 0.5
+  maxFucksPercentThreshold: 0.75

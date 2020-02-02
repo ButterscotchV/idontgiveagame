@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using idgag.AI;
+using idgag.GameState.LaneSections;
 using idgag.WordGame;
 using UnityEngine;
 
@@ -10,12 +13,13 @@ namespace idgag.GameState
         private PRStatement statement;
 
         public readonly Dictionary<FuckBucketTarget, int> fuckBuckets = new Dictionary<FuckBucketTarget, int>();
+        public readonly Dictionary<FuckBucketTarget, float> fuckBucketPercentages = new Dictionary<FuckBucketTarget, float>();
         [SerializeField] private Lane[] lanes;
 
         public Lane[] Lanes => lanes;
 
         public GameObject menuPrefab;
-        public Canvas menuCanvas;
+        [NonSerialized] public Canvas menuCanvas;
 
         public static GameState Singleton { get; private set; }
 
@@ -48,20 +52,44 @@ namespace idgag.GameState
         {
         }
 
-        public float GetFuckBucketPercent(FuckBucketTarget fuckBucketTarget)
+        public void GenerateFuckBucketPercentages()
         {
-            int totalFucks = 0;
-            int specifiedFucks = 0;
+            int totalFucks = fuckBuckets.Sum(fuckBucket => fuckBucket.Value);
 
             foreach (KeyValuePair<FuckBucketTarget, int> fuckBucket in fuckBuckets)
             {
-                if (fuckBucket.Key == fuckBucketTarget)
-                    specifiedFucks = fuckBucket.Value;
+                fuckBucketPercentages[fuckBucket.Key] = totalFucks > 0 ?fuckBucket.Value / (float)totalFucks : 0;
+            }
+        }
 
-                totalFucks += fuckBucket.Value;
+        public int CountAiAtStage()
+        {
+            int aiAtStage = 0;
+            
+            foreach (Lane lane in lanes)
+            {
+                LaneSection[] laneSections = lane.LaneSections;
+
+                if (laneSections.Length <= 0)
+                    continue;
+
+                aiAtStage += laneSections[laneSections.Length - 1].numAi;
             }
 
-            return specifiedFucks / (float)totalFucks;
+            return aiAtStage;
+        }
+
+        public void RunAiTick()
+        {
+            GenerateFuckBucketPercentages();
+
+            foreach (Lane lane in lanes)
+            {
+                foreach (AiController laneAiController in lane.AiControllers)
+                {
+                    laneAiController.RunAiLogic();
+                }
+            }
         }
 
         public void PresentPRStatement() {
